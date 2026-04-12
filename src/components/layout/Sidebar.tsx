@@ -80,6 +80,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
               <Link
                 key={item.name}
                 href={item.href}
+                onClick={() => setSidebarOpen(false)}
                 className={`
                   group flex items-center gap-x-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all duration-200
                   ${isActive 
@@ -105,7 +106,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
             <div className="absolute top-0 right-0 -mt-4 -mr-4 w-16 h-16 bg-brand-primary-blue/5 rounded-full blur-xl group-hover:bg-brand-primary-blue/10 transition-colors"></div>
             <h4 className="text-sm font-bold text-gray-900 mb-1">Need help?</h4>
             <p className="text-xs font-medium text-gray-500 mb-3 leading-relaxed">Contact campus support for any technical issues.</p>
-            <Link href="/help" className="w-full inline-flex justify-center text-xs font-bold text-white bg-brand-primary-blue py-2.5 px-4 rounded-xl shadow-sm hover:bg-brand-primary-blue/90 hover:shadow transition-all active:scale-95">
+            <Link href="/help" 
+              onClick={() => setSidebarOpen(false)}
+              className="w-full inline-flex justify-center text-xs font-bold text-white bg-brand-primary-blue py-2.5 px-4 rounded-xl shadow-sm hover:bg-brand-primary-blue/90 hover:shadow transition-all active:scale-95">
               Contact Support
             </Link>
           </div>
