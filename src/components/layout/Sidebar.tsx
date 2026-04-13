@@ -20,12 +20,12 @@ const studentNav = [
 ];
 
 const adminNav = [
-  { name: 'Global Command', href: '/admin', icon: ShieldAlert },
-  { name: 'Server Nodes', href: '#', icon: Server },
-  { name: 'Access IAM', href: '#', icon: Lock },
-  { name: 'Platform Users', href: '#', icon: Users },
-  { name: 'Database Queries', href: '#', icon: Terminal },
-  { name: 'System Settings', href: '#', icon: Settings },
+  { name: "Principal's Desk", href: '/admin', icon: ShieldAlert },
+  { name: 'Faculty & HR', href: '#', icon: Users },
+  { name: 'Student Directory', href: '#', icon: GraduationCap },
+  { name: 'Admissions Data', href: '#', icon: TrendingUp },
+  { name: 'Financial Overview', href: '#', icon: Landmark },
+  { name: 'College Settings', href: '#', icon: Settings },
 ];
 
 const teacherNav = [
