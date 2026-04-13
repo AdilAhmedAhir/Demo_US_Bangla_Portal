@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserCheck, CheckCircle2, XCircle, Clock, Save } from 'lucide-react';
+import { UserCheck, CheckCircle2, XCircle, Clock, Save, CalendarDays } from 'lucide-react';
 import Link from 'next/link';
 
 export default function TeacherAttendancePage() {
@@ -23,6 +23,40 @@ export default function TeacherAttendancePage() {
          <button className="flex items-center gap-2 bg-brand-primary-green text-white px-5 py-2.5 rounded-lg font-bold shadow hover:bg-brand-primary-green/90 transition-all">
            <Save className="w-4 h-4" /> Save & Broadcast SMS Alert
          </button>
+      </div>
+      {/* Calendar Date Selector Layer */}
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-4">
+        <div className="flex items-center justify-between mb-3">
+           <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2">
+             <CalendarDays className="w-4 h-4 text-brand-primary-blue" />
+             Select Date for Register
+           </h3>
+           <span className="text-xs font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">April 2026</span>
+        </div>
+        <div className="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-2">
+           {[
+             { day: 'Mon', date: '9', status: 'past' },
+             { day: 'Tue', date: '10', status: 'past' },
+             { day: 'Wed', date: '11', status: 'past' },
+             { day: 'Thu', date: '12', status: 'past' },
+             { day: 'Fri', date: '13', status: 'active' },
+             { day: 'Sat', date: '14', status: 'future' },
+             { day: 'Sun', date: '15', status: 'future' },
+           ].map((d, i) => (
+             <div key={i} className={`flex flex-col items-center justify-center p-3 rounded-xl border min-w-[80px] transition-all cursor-pointer ${
+               d.status === 'active' 
+                 ? 'bg-brand-primary-blue text-white border-brand-primary-blue shadow-md scale-105 transform origin-bottom' 
+                 : d.status === 'future'
+                   ? 'bg-gray-50 border-gray-100 text-gray-300 pointer-events-none'
+                   : 'bg-white border-gray-100 text-gray-500 hover:bg-gray-50 hover:border-gray-200'
+             }`}>
+               <span className="text-[10px] font-bold uppercase tracking-wider">{d.day}</span>
+               <span className="text-xl font-black mt-1 leading-none">{d.date}</span>
+               {d.status === 'past' && <div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-2"></div>}
+               {d.status === 'active' && <div className="w-2 h-2 rounded-full bg-white mt-1.5 animate-pulse"></div>}
+             </div>
+           ))}
+        </div>
       </div>
 
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden border-t-4 border-t-brand-primary-blue">
