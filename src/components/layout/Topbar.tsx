@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Bell, Menu, ChevronDown } from 'lucide-react';
+import { Search, Bell, Menu, ChevronDown, ExternalLink } from 'lucide-react';
 
 interface TopbarProps {
   setSidebarOpen: (open: boolean) => void;
@@ -42,7 +42,23 @@ export default function Topbar({ setSidebarOpen }: TopbarProps) {
           </div>
         </form>
         
-        <div className="flex items-center gap-x-4 lg:gap-x-6">
+        <div className="flex items-center gap-x-3 lg:gap-x-5">
+          {/* Portal Switcher for Demo */}
+          <div className="relative group">
+            <button type="button" className="flex items-center gap-2 px-3 py-1.5 bg-gray-900 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-gray-800 transition-colors">
+              Portals <ChevronDown className="h-3 w-3" />
+            </button>
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 flex flex-col py-2">
+              <a href="/" className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 font-medium">Student (Default)</a>
+              <a href="/admin" className="px-4 py-2 text-sm text-brand-primary-blue hover:bg-blue-50 font-medium">Super Admin</a>
+              <a href="/teacher" className="px-4 py-2 text-sm text-brand-primary-green hover:bg-green-50 font-medium">Teacher Hub</a>
+              <a href="/finance-admin" className="px-4 py-2 text-sm text-purple-600 hover:bg-purple-50 font-medium">Finance Admin</a>
+              <a href="/guardian" className="px-4 py-2 text-sm text-amber-600 hover:bg-amber-50 font-medium">Guardian View</a>
+              <a href="/library" className="px-4 py-2 text-sm text-pink-600 hover:bg-pink-50 font-medium">Digital Library</a>
+              <a href="/sms-mockup" className="px-4 py-2 text-sm text-gray-900 border-t border-gray-100 mt-2 hover:bg-gray-50 font-bold flex items-center justify-between">SMS Mock <ExternalLink className="h-3 w-3" /></a>
+            </div>
+          </div>
+
           {/* Notifications */}
           <button type="button" className="relative p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-all group border border-transparent hover:border-gray-200">
             <span className="sr-only">View notifications</span>
@@ -71,7 +87,6 @@ export default function Topbar({ setSidebarOpen }: TopbarProps) {
                   <span>Adil Student</span>
                   <span className="text-[10px] text-gray-500 font-medium leading-tight">ID: USB-2604</span>
                 </span>
-                <ChevronDown className="ml-2 h-4 w-4 text-gray-400" aria-hidden="true" />
               </span>
             </button>
           </div>
