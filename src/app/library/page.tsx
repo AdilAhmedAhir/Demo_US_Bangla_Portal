@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Search, Lock, DownloadCloud } from 'lucide-react';
+import { BookOpen, Search, Lock, DownloadCloud, UploadCloud } from 'lucide-react';
 
 export default function LibraryPage() {
   const books = [
@@ -11,18 +11,23 @@ export default function LibraryPage() {
 
   return (
     <div className="flex flex-col gap-6 w-full pb-10">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-2">
         <div>
           <h1 className="text-3xl font-black tracking-tight text-gray-900">Digital Library</h1>
-          <p className="mt-1 text-sm text-gray-500 font-medium">Access your textbooks online. DRM protected.</p>
+          <p className="mt-1 text-sm text-gray-500 font-medium">Access textbooks online or contribute to the student archive.</p>
         </div>
-        <div className="relative max-w-sm w-full font-sans">
-          <input 
-            type="text" 
-            placeholder="Search by book title or ISBN..." 
-            className="w-full pl-10 pr-4 py-2.5 bg-white border-2 border-gray-200 rounded-xl text-sm focus:outline-none focus:border-brand-primary-blue focus:ring-1 focus:ring-brand-primary-blue/20 transition-all font-medium text-gray-700"
-          />
-          <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-3" />
+        <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+          <div className="relative w-full sm:w-72 font-sans">
+            <input 
+              type="text" 
+              placeholder="Search by book title or ISBN..." 
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-brand-primary-blue focus:ring-1 focus:ring-brand-primary-blue/20 transition-all font-medium text-gray-700 shadow-sm"
+            />
+            <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-3" />
+          </div>
+          <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition shadow-sm whitespace-nowrap">
+            <UploadCloud className="w-4 h-4" /> Upload Book (PDF)
+          </button>
         </div>
       </div>
 

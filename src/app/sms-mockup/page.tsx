@@ -32,8 +32,8 @@ export default function SmsMockupPage() {
             <div className="w-10 h-10 rounded-full bg-gray-300 mx-auto flex items-center justify-center text-gray-600 mb-1">
                <Smartphone className="w-5 h-5" />
             </div>
-            <h2 className="text-xs font-bold text-gray-900">USBMAlerts</h2>
-            <p className="text-[9px] text-gray-500 font-medium">Enterprise Gateway</p>
+            <h2 className="text-[11px] font-bold text-gray-900">US Bangla Medical College</h2>
+            <p className="text-[9px] text-gray-500 font-medium">Enterprise SMS Gateway</p>
          </div>
 
          {/* Chat Body */}
