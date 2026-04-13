@@ -6,7 +6,7 @@ import {
   LayoutDashboard, GraduationCap, Wallet, Building2, BookOpenCheck, CalendarDays, LifeBuoy, X,
   ShieldAlert, Settings, Users, Server, Terminal, Lock, Activity,
   UsersRound, FileDiff, CheckSquare,
-  Receipt, BarChart3, Landmark, BookCopy, Share2, UserCheck
+  Receipt, BarChart3, Landmark, BookCopy, Share2, UserCheck, TrendingUp
 } from 'lucide-react';
 
 const studentNav = [
