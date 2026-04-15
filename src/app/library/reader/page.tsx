@@ -1,10 +1,22 @@
-import React from 'react';
-import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Maximize2, BookOpen, Lock, Bookmark, List, Search } from 'lucide-react';
+'use client'
+
+import React, { useRef, useCallback } from 'react';
+import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Maximize2, Minimize2, BookOpen, Lock, Bookmark, List, Search } from 'lucide-react';
 import Link from 'next/link';
 
 export default function LibraryReaderPage() {
+  const readerRef = useRef<HTMLDivElement>(null);
+
+  const toggleFullScreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      readerRef.current?.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }, []);
+
   return (
-    <div className="flex flex-col w-full -mt-8 -mx-4 sm:-mx-6 lg:-mx-8" style={{ height: 'calc(100vh - 5rem)' }}>
+    <div ref={readerRef} className="flex flex-col w-full -mt-8 -mx-4 sm:-mx-6 lg:-mx-8 bg-gray-200" style={{ height: 'calc(100vh - 5rem)' }}>
       {/* Reader Toolbar */}
       <div className="bg-white border-b border-gray-200 px-3 sm:px-4 py-2 flex items-center justify-between shadow-sm z-10 shrink-0">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
@@ -37,7 +49,7 @@ export default function LibraryReaderPage() {
             <ZoomIn className="w-4 h-4" />
           </button>
           <div className="hidden sm:block h-5 w-px bg-gray-200 mx-0.5"></div>
-          <button className="p-1.5 sm:p-2 hover:bg-gray-100 rounded-lg transition text-gray-500" title="Full Screen">
+          <button onClick={toggleFullScreen} className="p-1.5 sm:p-2 hover:bg-gray-100 rounded-lg transition text-gray-500" title="Full Screen">
             <Maximize2 className="w-4 h-4" />
           </button>
         </div>
