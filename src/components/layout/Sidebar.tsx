@@ -51,8 +51,8 @@ const libraryNav = [
   { name: 'Library Home', href: '/library', icon: BookCopy },
   { name: 'Browse Catalog', href: '/library/catalog', icon: Search },
   { name: 'Upload Book', href: '/library/upload', icon: UploadCloud },
-  { name: 'My Reading List', href: '#', icon: BookOpenCheck },
-  { name: 'Recent Activity', href: '#', icon: Activity },
+  { name: 'My Reading List', href: '/library/reading-list', icon: BookOpenCheck },
+  { name: 'Recent Activity', href: '/library/activity', icon: Activity },
 ];
 
 interface SidebarProps {
