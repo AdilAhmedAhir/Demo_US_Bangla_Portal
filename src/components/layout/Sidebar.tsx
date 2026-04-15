@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { 
   LayoutDashboard, GraduationCap, Wallet, Building2, BookOpenCheck, CalendarDays, LifeBuoy, X,
   ShieldAlert, Settings, Users, Server, Terminal, Lock, Activity,
-  UsersRound, FileDiff, CheckSquare,
+  UsersRound, FileDiff, CheckSquare, Search, UploadCloud,
   Receipt, BarChart3, Landmark, BookCopy, Share2, UserCheck, TrendingUp
 } from 'lucide-react';
 
@@ -48,8 +48,11 @@ const guardianNav = [
 ];
 
 const libraryNav = [
-  { name: 'Digital Library', href: '/library', icon: BookCopy },
-  { name: 'Read Online', href: '#', icon: Share2 },
+  { name: 'Library Home', href: '/library', icon: BookCopy },
+  { name: 'Browse Catalog', href: '/library/catalog', icon: Search },
+  { name: 'Upload Book', href: '/library/upload', icon: UploadCloud },
+  { name: 'My Reading List', href: '#', icon: BookOpenCheck },
+  { name: 'Recent Activity', href: '#', icon: Activity },
 ];
 
 interface SidebarProps {
