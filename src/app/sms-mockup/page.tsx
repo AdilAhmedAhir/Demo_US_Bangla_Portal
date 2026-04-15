@@ -9,7 +9,7 @@ export default function SmsMockupPage() {
       
       <div className="text-center max-w-lg mb-4">
          <h1 className="text-3xl font-black tracking-tight text-gray-900 mb-2">Automated SMS Gateway</h1>
-         <p className="text-gray-500 font-medium">When an event triggers (like missing attendance or fees due), the system instantly pushes a branded SMS alert to the student or guardian's phone.</p>
+         <p className="text-gray-500 font-medium">When an event triggers (like missing attendance or fees due), the system instantly pushes a branded SMS alert to the student or guardian&apos;s phone.</p>
       </div>
 
       {/* iPhone Frame Mockup */}

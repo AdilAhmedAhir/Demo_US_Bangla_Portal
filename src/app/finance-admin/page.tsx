@@ -46,14 +46,15 @@ export default function FinanceAdminPage() {
          </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm mt-4">
-        <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-          <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-            <AlertCircle className="w-5 h-5 text-brand-accent-red" /> Attention Required: High Outstanding Dues
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm mt-4 overflow-hidden">
+        <div className="px-6 py-5 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-gray-50/50">
+          <h3 className="text-base sm:text-lg font-bold text-gray-900 flex items-center gap-2">
+            <AlertCircle className="w-5 h-5 text-brand-accent-red" /> Attention: High Outstanding Dues
           </h3>
-          <button className="px-4 py-2 bg-purple-600 text-white rounded-md text-xs font-bold shadow-sm">Send Bulk SMS Warn</button>
+          <button className="px-4 py-2 bg-purple-600 text-white rounded-md text-xs font-bold shadow-sm whitespace-nowrap">Send Bulk SMS Warn</button>
         </div>
-        <table className="w-full text-left">
+        <div className="overflow-x-auto">
+        <table className="w-full text-left min-w-[600px]">
            <thead>
              <tr className="border-b border-gray-100 text-xs uppercase text-gray-500 bg-white">
                <th className="px-6 py-4 font-bold">Student</th>
@@ -81,6 +82,7 @@ export default function FinanceAdminPage() {
              ))}
            </tbody>
         </table>
+        </div>
       </div>
     </div>
   );
