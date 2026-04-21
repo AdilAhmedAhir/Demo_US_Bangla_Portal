@@ -8,7 +8,7 @@ import {
   UsersRound, FileDiff, CheckSquare, Search, UploadCloud,
   Receipt, BarChart3, Landmark, BookCopy, Share2, UserCheck, TrendingUp,
   Bell, User, Stethoscope, Trophy, ClipboardList, PieChart,
-  BookOpen, RefreshCcw, FileText, Award, AlertTriangle, ScanLine
+  BookOpen, RefreshCcw, FileText, Award, AlertTriangle, ScanLine, ShieldCheck
 } from 'lucide-react';
 
 const studentNav = [
@@ -81,12 +81,16 @@ const principalNav = [
 ];
 
 const libraryNav = [
+  // ── Student ──
   { name: 'Library Home', href: '/library', icon: BookCopy },
   { name: 'Browse Catalog', href: '/library/catalog', icon: Search },
-  { name: 'Offline Checkout', href: '/library/checkout', icon: ScanLine },
+  { name: 'My Borrow Log', href: '/library/my-log', icon: BookOpenCheck },
+  { name: 'Reading List', href: '/library/reading-list', icon: BookOpen },
+  // ── Admin ──
+  { name: '— Admin —', href: '#', icon: ShieldCheck, divider: true },
+  { name: 'Checkout / Return', href: '/library/checkout', icon: ScanLine },
   { name: 'Analytics', href: '/library/analytics', icon: BarChart3 },
   { name: 'Upload Book', href: '/library/upload', icon: UploadCloud },
-  { name: 'My Reading List', href: '/library/reading-list', icon: BookOpenCheck },
   { name: 'Recent Activity', href: '/library/activity', icon: Activity },
 ];
 
@@ -148,7 +152,20 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
         </div>
 
         <nav className="flex flex-1 flex-col overflow-y-auto pt-6 pb-4 px-4 space-y-1.5 custom-scrollbar">
-          {activeNav.map((item) => {
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {(activeNav as any[]).map((item) => {
+            // Divider label item
+            if ((item as any).divider) {
+              return (
+                <div key={item.name} className="pt-3 pb-1">
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 h-px bg-gray-100" />
+                    <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Admin</span>
+                    <div className="flex-1 h-px bg-gray-100" />
+                  </div>
+                </div>
+              );
+            }
             const isActive = pathname === item.href;
             return (
               <Link
