@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { 
   LayoutDashboard, GraduationCap, Wallet, Building2, BookOpenCheck, CalendarDays, LifeBuoy, X,
-  ShieldAlert, Settings, Users, Server, Terminal, Lock, Activity,
+  ShieldAlert, Settings, Users, Server, Terminal, Lock, Activity, Microscope,
   UsersRound, FileDiff, CheckSquare, Search, UploadCloud,
   Receipt, BarChart3, Landmark, BookCopy, Share2, UserCheck, TrendingUp
 } from 'lucide-react';
@@ -32,11 +32,13 @@ const teacherNav = [
   { name: 'Teacher Hub', href: '/teacher', icon: LayoutDashboard },
   { name: 'My Classes', href: '#', icon: UsersRound },
   { name: 'Attendance Register', href: '/teacher/attendance', icon: CheckSquare },
-  { name: 'Exam Grading', href: '#', icon: FileDiff },
+  { name: 'Quiz Builder', href: '/teacher/quiz-builder', icon: CheckSquare },
+  { name: 'Exam Grading', href: '/teacher/grading', icon: FileDiff },
 ];
 
 const financeNav = [
   { name: 'Finance Admin', href: '/finance-admin', icon: Landmark },
+  { name: 'Data Sync', href: '/finance-admin/sync', icon: Receipt },
   { name: 'Revenue Reports', href: '#', icon: BarChart3 },
   { name: 'Pending Invoices', href: '#', icon: Receipt },
 ];
@@ -45,6 +47,14 @@ const guardianNav = [
   { name: 'Parent View', href: '/guardian', icon: UserCheck },
   { name: 'Child Progress', href: '#', icon: Activity },
   { name: 'Fee Payments', href: '#', icon: Wallet },
+];
+
+const hodNav = [
+  { name: 'HOD Command Center', href: '/hod', icon: Microscope },
+  { name: 'Faculty Members', href: '#', icon: UsersRound },
+  { name: 'Attendance Overrides', href: '#', icon: ShieldAlert },
+  { name: 'Department Analytics', href: '#', icon: BarChart3 },
+  { name: 'HOD Reports', href: '#', icon: FileDiff },
 ];
 
 const libraryNav = [
@@ -70,6 +80,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
   else if (pathname.startsWith('/teacher')) { activeNav = teacherNav; activeTitle = "Teacher Hub"; }
   else if (pathname.startsWith('/finance-admin')) { activeNav = financeNav; activeTitle = "Accounts"; }
   else if (pathname.startsWith('/guardian')) { activeNav = guardianNav; activeTitle = "Guardian"; }
+  else if (pathname.startsWith('/hod')) { activeNav = hodNav; activeTitle = "Head of Dept."; }
   else if (pathname.startsWith('/library')) { activeNav = libraryNav; activeTitle = "e-Library"; }
 
   return (

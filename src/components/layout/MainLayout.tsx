@@ -1,11 +1,19 @@
 'use client';
 
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 
+const BARE_ROUTES = ['/login'];
+
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const pathname = usePathname();
+
+  if (BARE_ROUTES.some(r => pathname.startsWith(r))) {
+    return <>{children}</>;
+  }
 
   return (
     <div>
