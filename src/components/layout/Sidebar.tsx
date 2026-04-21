@@ -6,16 +6,20 @@ import {
   LayoutDashboard, GraduationCap, Wallet, Building2, BookOpenCheck, CalendarDays, LifeBuoy, X,
   ShieldAlert, Settings, Users, Server, Terminal, Lock, Activity, Microscope,
   UsersRound, FileDiff, CheckSquare, Search, UploadCloud,
-  Receipt, BarChart3, Landmark, BookCopy, Share2, UserCheck, TrendingUp
+  Receipt, BarChart3, Landmark, BookCopy, Share2, UserCheck, TrendingUp,
+  Bell, User, Stethoscope, Trophy, ClipboardList, PieChart
 } from 'lucide-react';
 
 const studentNav = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+  { name: 'My Profile', href: '/profile', icon: User },
   { name: 'Academics', href: '/academics', icon: GraduationCap },
+  { name: 'My Attendance', href: '/attendance', icon: CheckSquare },
   { name: 'Class Schedule', href: '/schedule', icon: CalendarDays },
   { name: 'Finances', href: '/finances', icon: Wallet },
   { name: 'Hostel', href: '/hostel', icon: Building2 },
   { name: 'Quizzes/Exams', href: '/exams', icon: BookOpenCheck },
+  { name: 'Notice Board', href: '/notices', icon: Bell },
   { name: 'Help Center', href: '/help', icon: LifeBuoy },
 ];
 
@@ -57,6 +61,15 @@ const hodNav = [
   { name: 'HOD Reports', href: '#', icon: FileDiff },
 ];
 
+const principalNav = [
+  { name: "Principal's Dashboard", href: '/principal', icon: Stethoscope },
+  { name: 'Department Overview', href: '#', icon: Microscope },
+  { name: 'Enrollment Analytics', href: '#', icon: PieChart },
+  { name: 'Faculty & Staff', href: '#', icon: Users },
+  { name: 'Accreditation', href: '#', icon: Trophy },
+  { name: 'Audit Trail', href: '#', icon: ClipboardList },
+];
+
 const libraryNav = [
   { name: 'Library Home', href: '/library', icon: BookCopy },
   { name: 'Browse Catalog', href: '/library/catalog', icon: Search },
@@ -76,7 +89,8 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
   // Dynamic context router
   let activeNav = studentNav;
   let activeTitle = "Student Portal";
-  if (pathname.startsWith('/admin')) { activeNav = adminNav; activeTitle = "Super Admin"; }
+  if (pathname.startsWith('/principal')) { activeNav = principalNav; activeTitle = "Principal's Office"; }
+  else if (pathname.startsWith('/admin')) { activeNav = adminNav; activeTitle = "Super Admin"; }
   else if (pathname.startsWith('/teacher')) { activeNav = teacherNav; activeTitle = "Teacher Hub"; }
   else if (pathname.startsWith('/finance-admin')) { activeNav = financeNav; activeTitle = "Accounts"; }
   else if (pathname.startsWith('/guardian')) { activeNav = guardianNav; activeTitle = "Guardian"; }
