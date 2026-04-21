@@ -7,18 +7,24 @@ import {
   ShieldAlert, Settings, Users, Server, Terminal, Lock, Activity, Microscope,
   UsersRound, FileDiff, CheckSquare, Search, UploadCloud,
   Receipt, BarChart3, Landmark, BookCopy, Share2, UserCheck, TrendingUp,
-  Bell, User, Stethoscope, Trophy, ClipboardList, PieChart
+  Bell, User, Stethoscope, Trophy, ClipboardList, PieChart,
+  BookOpen, RefreshCcw, FileText, Award
 } from 'lucide-react';
 
 const studentNav = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
   { name: 'My Profile', href: '/profile', icon: User },
   { name: 'Academics', href: '/academics', icon: GraduationCap },
+  { name: 'Curriculum Guide', href: '/curriculum', icon: BookOpen },
+  { name: 'Item Cards', href: '/academics/item-cards', icon: ClipboardList },
+  { name: 'Exam Results', href: '/results', icon: Award },
   { name: 'My Attendance', href: '/attendance', icon: CheckSquare },
   { name: 'Class Schedule', href: '/schedule', icon: CalendarDays },
   { name: 'Finances', href: '/finances', icon: Wallet },
   { name: 'Hostel', href: '/hostel', icon: Building2 },
   { name: 'Quizzes/Exams', href: '/exams', icon: BookOpenCheck },
+  { name: 'Makeup Exam', href: '/exams/makeup', icon: RefreshCcw },
+  { name: 'Documents', href: '/documents', icon: FileText },
   { name: 'Notice Board', href: '/notices', icon: Bell },
   { name: 'Help Center', href: '/help', icon: LifeBuoy },
 ];
