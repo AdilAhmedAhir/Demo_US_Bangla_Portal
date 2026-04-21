@@ -8,7 +8,7 @@ import {
   UsersRound, FileDiff, CheckSquare, Search, UploadCloud,
   Receipt, BarChart3, Landmark, BookCopy, Share2, UserCheck, TrendingUp,
   Bell, User, Stethoscope, Trophy, ClipboardList, PieChart,
-  BookOpen, RefreshCcw, FileText, Award, AlertTriangle
+  BookOpen, RefreshCcw, FileText, Award, AlertTriangle, ScanLine
 } from 'lucide-react';
 
 const studentNav = [
@@ -25,6 +25,7 @@ const studentNav = [
   { name: 'Quizzes/Exams', href: '/exams', icon: BookOpenCheck },
   { name: 'Makeup Exam', href: '/exams/makeup', icon: RefreshCcw },
   { name: 'Documents', href: '/documents', icon: FileText },
+  { name: 'Library Log', href: '/library/my-log', icon: BookCopy },
   { name: 'Notice Board', href: '/notices', icon: Bell },
   { name: 'Help Center', href: '/help', icon: LifeBuoy },
 ];
@@ -82,6 +83,7 @@ const principalNav = [
 const libraryNav = [
   { name: 'Library Home', href: '/library', icon: BookCopy },
   { name: 'Browse Catalog', href: '/library/catalog', icon: Search },
+  { name: 'Offline Checkout', href: '/library/checkout', icon: ScanLine },
   { name: 'Analytics', href: '/library/analytics', icon: BarChart3 },
   { name: 'Upload Book', href: '/library/upload', icon: UploadCloud },
   { name: 'My Reading List', href: '/library/reading-list', icon: BookOpenCheck },
