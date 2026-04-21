@@ -8,7 +8,7 @@ import {
   UsersRound, FileDiff, CheckSquare, Search, UploadCloud,
   Receipt, BarChart3, Landmark, BookCopy, Share2, UserCheck, TrendingUp,
   Bell, User, Stethoscope, Trophy, ClipboardList, PieChart,
-  BookOpen, RefreshCcw, FileText, Award
+  BookOpen, RefreshCcw, FileText, Award, AlertTriangle
 } from 'lucide-react';
 
 const studentNav = [
@@ -42,13 +42,16 @@ const teacherNav = [
   { name: 'Teacher Hub', href: '/teacher', icon: LayoutDashboard },
   { name: 'My Classes', href: '#', icon: UsersRound },
   { name: 'Attendance Register', href: '/teacher/attendance', icon: CheckSquare },
-  { name: 'Quiz Builder', href: '/teacher/quiz-builder', icon: CheckSquare },
+  { name: 'Quiz Builder', href: '/teacher/quiz-builder', icon: BookOpenCheck },
   { name: 'Exam Grading', href: '/teacher/grading', icon: FileDiff },
+  { name: 'Formative Calc', href: '/teacher/formative', icon: BarChart3 },
+  { name: 'Item Cards', href: '/teacher/item-cards', icon: ClipboardList },
 ];
 
 const financeNav = [
   { name: 'Finance Admin', href: '/finance-admin', icon: Landmark },
   { name: 'Data Sync', href: '/finance-admin/sync', icon: Receipt },
+  { name: 'Fee Defaulters', href: '/finance-admin/defaulters', icon: AlertTriangle },
   { name: 'Revenue Reports', href: '#', icon: BarChart3 },
   { name: 'Pending Invoices', href: '#', icon: Receipt },
 ];
@@ -62,7 +65,7 @@ const guardianNav = [
 const hodNav = [
   { name: 'HOD Command Center', href: '/hod', icon: Microscope },
   { name: 'Faculty Members', href: '#', icon: UsersRound },
-  { name: 'Attendance Overrides', href: '#', icon: ShieldAlert },
+  { name: 'Attendance Overrides', href: '/hod/attendance-override', icon: ShieldAlert },
   { name: 'Department Analytics', href: '#', icon: BarChart3 },
   { name: 'HOD Reports', href: '#', icon: FileDiff },
 ];
@@ -79,6 +82,7 @@ const principalNav = [
 const libraryNav = [
   { name: 'Library Home', href: '/library', icon: BookCopy },
   { name: 'Browse Catalog', href: '/library/catalog', icon: Search },
+  { name: 'Analytics', href: '/library/analytics', icon: BarChart3 },
   { name: 'Upload Book', href: '/library/upload', icon: UploadCloud },
   { name: 'My Reading List', href: '/library/reading-list', icon: BookOpenCheck },
   { name: 'Recent Activity', href: '/library/activity', icon: Activity },
