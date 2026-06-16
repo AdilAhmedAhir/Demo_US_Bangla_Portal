@@ -1,10 +1,26 @@
 'use client'
 
-import React, { useRef, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Maximize2, Minimize2, BookOpen, Lock, Bookmark, List, Search } from 'lucide-react';
+import React, { Suspense, useRef, useCallback } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Maximize2, BookOpen, Lock, Bookmark, List, Search } from 'lucide-react';
 import Link from 'next/link';
+import { getBook, books } from '@/data/library';
 
 export default function LibraryReaderPage() {
+  return (
+    <Suspense fallback={<div className="w-full h-[60vh] flex items-center justify-center text-sm font-bold text-gray-400">Loading reader…</div>}>
+      <Reader />
+    </Suspense>
+  );
+}
+
+function Reader() {
+  const params = useSearchParams();
+  const id = params.get('id');
+  const book = (id ? getBook(id) : undefined) ?? books[0];
+  const currentPage = 24;
+  const progress = Math.max(1, Math.round((currentPage / book.pages) * 100));
+
   const readerRef = useRef<HTMLDivElement>(null);
 
   const toggleFullScreen = useCallback(() => {
@@ -25,8 +41,8 @@ export default function LibraryReaderPage() {
           </Link>
           <div className="hidden sm:block h-5 w-px bg-gray-200"></div>
           <div className="hidden sm:block min-w-0">
-            <h3 className="text-sm font-bold text-gray-900 leading-tight truncate">Gray&apos;s Anatomy for Students</h3>
-            <p className="text-[11px] text-gray-500 font-medium">Richard L. Drake • 4th Edition</p>
+            <h3 className="text-sm font-bold text-gray-900 leading-tight truncate">{book.title}</h3>
+            <p className="text-[11px] text-gray-500 font-medium truncate">{book.author}{book.edition ? ` • ${book.edition}` : ''}</p>
           </div>
         </div>
 
@@ -80,35 +96,35 @@ export default function LibraryReaderPage() {
           {/* Simulated Page Content */}
           <div className="flex-1 p-5 sm:p-8 md:p-12 overflow-y-auto">
             <div className="max-w-lg mx-auto">
-              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-4">Chapter 1</p>
-              <h2 className="text-xl sm:text-2xl font-serif font-bold text-gray-900 mb-6 leading-snug border-b-2 border-gray-200 pb-4">
-                The Body
+              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-4">{book.subject} · Chapter 1</p>
+              <h2 className="text-xl sm:text-2xl font-serif font-bold text-gray-900 mb-2 leading-snug">
+                {book.title}
               </h2>
-              <h3 className="text-base sm:text-lg font-serif font-bold text-gray-800 mb-4">1.1 — The Regions and Planes of the Body</h3>
-              
+              <p className="text-xs text-gray-400 font-medium mb-6 border-b-2 border-gray-200 pb-4">
+                {book.author}{book.edition ? ` — ${book.edition}` : ''} · {book.professional} ({book.phase})
+              </p>
+              <h3 className="text-base sm:text-lg font-serif font-bold text-gray-800 mb-4">1.1 — Introduction & Scope</h3>
+
               <p className="text-sm text-gray-700 leading-7 mb-4 font-serif">
-                The human body can be described in terms of standard anatomical position. In this position, a person stands erect, with the face directed forward, the upper limbs hanging to the sides, and the palms of the hands facing forward. This position is universally adopted in anatomy and medicine.
+                This chapter introduces the foundational concepts of {book.subject.toLowerCase()} as covered in the {book.professional} examination of the MBBS curriculum. The material is structured to build progressively from core principles toward their clinical application.
               </p>
               <p className="text-sm text-gray-700 leading-7 mb-4 font-serif">
-                Using this standard anatomical position, the body is divided into sections by anatomical planes. The three primary planes used in anatomical study are the sagittal, coronal, and transverse planes. Each plane serves as a reference for describing the locations and movements of the body.
+                Each section is supported by illustrative figures, worked examples, and review questions aligned with the BMDC competency framework. Students are encouraged to correlate the theory presented here with their concurrent ward postings and integrated-teaching sessions.
               </p>
 
               {/* Dummy Diagram Placeholder */}
               <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 sm:p-6 my-6 flex flex-col items-center justify-center text-center">
                 <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400 mb-2" />
                 <p className="text-[10px] sm:text-xs font-bold text-blue-600 uppercase tracking-wider">Figure 1.1</p>
-                <p className="text-xs sm:text-sm font-medium text-blue-800 mt-1">Anatomical Planes of the Human Body</p>
-                <p className="text-[9px] sm:text-[10px] text-blue-500 mt-2">[Interactive Diagram — Rendered via DRM Viewer]</p>
+                <p className="text-xs sm:text-sm font-medium text-blue-800 mt-1">Core concept overview — {book.subject}</p>
+                <p className="text-[9px] sm:text-[10px] text-blue-500 mt-2">[Interactive Figure — Rendered via DRM Viewer]</p>
               </div>
 
               <p className="text-sm text-gray-700 leading-7 mb-4 font-serif">
-                The <strong>sagittal plane</strong> divides the body vertically into left and right portions. A midsagittal (median) plane divides it equally, while a parasagittal plane divides it unequally. The <strong>coronal (frontal) plane</strong> divides the body into anterior and posterior (front and back) portions.
+                The DRM viewer renders this text in a protected, online-only format. Content cannot be downloaded or printed, preserving the institution&apos;s digital licensing while giving every enrolled student seamless access on any device.
               </p>
               <p className="text-sm text-gray-700 leading-7 mb-4 font-serif">
-                The <strong>transverse (horizontal) plane</strong> divides the body into superior and inferior (upper and lower) portions. These planes are essential for imaging techniques such as CT and MRI scans, where cross-sectional anatomy is visualized for diagnostic purposes.
-              </p>
-              <p className="text-sm text-gray-700 leading-7 mb-4 font-serif">
-                Understanding body planes is fundamental to all of clinical medicine. Surgeons, radiologists, and anatomists all use this framework to communicate the precise location of structures, lesions, and surgical approaches within the body.
+                Use the navigation controls to move between pages, the table-of-contents button to jump to a chapter, and the in-book search to locate a specific topic. Your reading position is saved automatically.
               </p>
             </div>
           </div>
@@ -125,16 +141,16 @@ export default function LibraryReaderPage() {
         <div className="flex items-center gap-2 sm:gap-4">
           <span className="text-xs font-bold text-gray-500 hidden sm:inline">Page</span>
           <div className="flex items-center gap-1">
-            <input type="text" defaultValue="24" className="w-10 text-center bg-gray-100 border border-gray-200 rounded px-1 py-0.5 text-xs font-bold text-gray-700 focus:outline-none focus:border-brand-primary-blue" />
-            <span className="text-xs text-gray-400 font-bold">/ 1,168</span>
+            <input type="text" defaultValue={String(currentPage)} className="w-10 text-center bg-gray-100 border border-gray-200 rounded px-1 py-0.5 text-xs font-bold text-gray-700 focus:outline-none focus:border-brand-primary-blue" />
+            <span className="text-xs text-gray-400 font-bold">/ {book.pages.toLocaleString()}</span>
           </div>
         </div>
         <div className="flex-1 max-w-xs sm:max-w-md mx-3 sm:mx-4">
           <div className="w-full bg-gray-200 rounded-full h-1.5">
-            <div className="bg-brand-primary-blue h-1.5 rounded-full transition-all" style={{ width: '2%' }}></div>
+            <div className="bg-brand-primary-blue h-1.5 rounded-full transition-all" style={{ width: `${progress}%` }}></div>
           </div>
         </div>
-        <span className="text-xs font-bold text-gray-400 whitespace-nowrap">2%</span>
+        <span className="text-xs font-bold text-gray-400 whitespace-nowrap">{progress}%</span>
       </div>
     </div>
   );

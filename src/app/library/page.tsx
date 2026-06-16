@@ -13,8 +13,6 @@ import {
   Clock,
   AlertTriangle,
   CheckCircle2,
-  TrendingUp,
-  Users,
   Eye,
   Star,
   ArrowRight,
@@ -22,32 +20,24 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import Link from 'next/link';
+import BookCover from '@/components/BookCover';
+import { books, totalBooks, totalSubjects } from '@/data/library';
 
 /* ────────────────────────────────────────────────────────── */
-/* Mock data                                                   */
+/* Data (derived from the shared catalog so it matches /catalog) */
 /* ────────────────────────────────────────────────────────── */
-const featuredBooks = [
-  { title: "Jawetz Medical Microbiology", author: "Jawetz et al.", category: "Microbiology", cover: "from-blue-600 to-blue-800", readers: 48, rating: 4.8 },
-  { title: "Robbins Basic Pathology", author: "Vinay Kumar", category: "Pathology", cover: "from-purple-600 to-purple-900", readers: 42, rating: 4.7 },
-  { title: "Guyton Medical Physiology", author: "John E. Hall", category: "Physiology", cover: "from-red-600 to-red-900", readers: 38, rating: 4.9 },
-  { title: "Park's Preventive Medicine", author: "K. Park", category: "Community Med", cover: "from-emerald-600 to-emerald-900", readers: 35, rating: 4.6 },
-];
-
-const recentlyAdded = [
-  { title: "Langman's Medical Embryology", author: "T.W. Sadler", date: "Apr 12, 2026" },
-  { title: "Harper's Illustrated Biochemistry", author: "Victor W. Rodwell", date: "Apr 10, 2026" },
-  { title: "Snell's Clinical Neuroanatomy", author: "Ryan Splittgerber", date: "Apr 8, 2026" },
-];
+const featuredBooks = [...books].sort((a, b) => b.readers - a.readers).slice(0, 4);
+const recentlyAdded = [...books].sort((a, b) => b.year - a.year).slice(0, 4);
 
 const myBorrows = [
-  { title: 'Jawetz Medical Microbiology', dueDate: 'Apr 24, 2026', status: 'active' },
-  { title: "Robbins Pathologic Basis of Disease", dueDate: 'Mar 29, 2026', status: 'overdue' },
+  { title: "Ananthanarayan & Paniker's Textbook of Microbiology", dueDate: 'Apr 24, 2026', status: 'active' },
+  { title: 'Robbins & Cotran Pathologic Basis of Disease', dueDate: 'Mar 29, 2026', status: 'overdue' },
 ];
 
 const outstandingBooks = [
-  { student: 'Hasan Mahmud', id: 'USB-2606', book: 'Jawetz Microbiology', due: 'Apr 5', days: 16 },
-  { student: 'Rafi Islam', id: 'USB-2608', book: 'Robbins Pathology', due: 'Mar 28', days: 24 },
-  { student: 'Karim Uddin', id: 'USB-2510', book: "Harrison's Principles", due: 'Apr 10', days: 11 },
+  { student: 'Hasan Mahmud', id: 'USB-2606', book: "Ananthanarayan Microbiology", due: 'Apr 5', days: 16 },
+  { student: 'Rafi Islam', id: 'USB-2608', book: 'Robbins Basic Pathology', due: 'Mar 28', days: 24 },
+  { student: 'Karim Uddin', id: 'USB-2510', book: "Harrison's Principles of Internal Medicine", due: 'Apr 10', days: 11 },
 ];
 
 /* ────────────────────────────────────────────────────────── */
@@ -122,7 +112,7 @@ function StudentView() {
             </div>
             <h2 className="text-3xl font-black tracking-tight mb-2">Your Library, Anytime</h2>
             <p className="text-sm text-purple-200 max-w-lg leading-relaxed">
-              Access 100+ curated medical textbooks online. Track your physical checkouts, manage your reading list, and request books directly from here.
+              Access <strong className="text-white">{totalBooks} curated medical textbooks</strong> across the full BMDC MBBS curriculum — all {totalSubjects} subjects, Phase I to Final Professional. Read online, track checkouts, and manage your reading list.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3">
@@ -191,17 +181,19 @@ function StudentView() {
       {/* Featured Books */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-base font-bold text-gray-900">Most Read This Semester</h3>
+          <h3 className="text-base font-bold text-gray-900">Most Read This Session</h3>
           <Link href="/library/catalog" className="text-xs font-bold text-brand-primary-blue hover:underline flex items-center gap-1">
             View All <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {featuredBooks.map((book, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all">
-              <div className={`bg-gradient-to-br ${book.cover} h-28 flex items-end p-3`}>
-                <span className="text-[9px] font-bold bg-white/20 text-white px-2 py-0.5 rounded-full">{book.category}</span>
-              </div>
+          {featuredBooks.map((book) => (
+            <Link
+              key={book.id}
+              href={`/library/reader?id=${book.id}`}
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all"
+            >
+              <BookCover book={book} className="h-32" drm={false} />
               <div className="p-3">
                 <p className="text-xs font-black text-gray-900 leading-tight mb-1 line-clamp-2">{book.title}</p>
                 <p className="text-[9px] text-gray-500 mb-2">{book.author}</p>
@@ -210,7 +202,7 @@ function StudentView() {
                   <span className="text-[9px] font-bold text-amber-600 flex items-center gap-0.5"><Star className="w-2.5 h-2.5" /> {book.rating}</span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -221,14 +213,14 @@ function StudentView() {
           <h3 className="text-sm font-bold text-gray-900">Recently Added to the Library</h3>
         </div>
         <div className="divide-y divide-gray-50">
-          {recentlyAdded.map((book, i) => (
-            <div key={i} className="px-6 py-3.5 flex items-center justify-between hover:bg-slate-50 transition-colors">
+          {recentlyAdded.map((book) => (
+            <Link key={book.id} href={`/library/reader?id=${book.id}`} className="px-6 py-3.5 flex items-center justify-between hover:bg-slate-50 transition-colors">
               <div>
                 <p className="text-sm font-bold text-gray-900">{book.title}</p>
-                <p className="text-[10px] text-gray-400">{book.author}</p>
+                <p className="text-[10px] text-gray-400">{book.author} · {book.subject}</p>
               </div>
-              <span className="text-[10px] text-gray-400 font-bold">{book.date}</span>
-            </div>
+              <span className="text-[10px] text-gray-400 font-bold">{book.edition ?? book.year}</span>
+            </Link>
           ))}
         </div>
       </div>
@@ -270,9 +262,9 @@ function AdminView() {
       {/* KPI Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-          <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Total Inventory</p>
-          <p className="text-2xl font-black text-gray-900">12,847</p>
-          <p className="text-[10px] text-emerald-600 font-bold mt-1">Physical books</p>
+          <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">e-Book Titles</p>
+          <p className="text-2xl font-black text-gray-900">{totalBooks}</p>
+          <p className="text-[10px] text-emerald-600 font-bold mt-1">Across {totalSubjects} subjects</p>
         </div>
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
           <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Currently Checked Out</p>
@@ -287,7 +279,7 @@ function AdminView() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
           <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Active Readers</p>
           <p className="text-2xl font-black text-gray-900">342</p>
-          <p className="text-[10px] text-gray-400 font-bold mt-1">This semester</p>
+          <p className="text-[10px] text-gray-400 font-bold mt-1">This session</p>
         </div>
       </div>
 

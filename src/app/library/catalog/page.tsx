@@ -1,24 +1,53 @@
-import React from 'react';
-import { BookOpen, Search, Lock, DownloadCloud, Star, Eye, Filter, SlidersHorizontal } from 'lucide-react';
+'use client';
+
+import React, { useMemo, useState } from 'react';
+import { Search, DownloadCloud, Star, Eye, Filter, X, BookOpen } from 'lucide-react';
 import Link from 'next/link';
+import BookCover from '@/components/BookCover';
+import {
+  books,
+  PHASES,
+  subjectsForPhase,
+  countByPhase,
+  totalBooks,
+  totalSubjects,
+  type Phase,
+} from '@/data/library';
+
+type PhaseFilter = 'All' | Phase;
+type SortKey = 'subject' | 'title' | 'rating' | 'readers';
 
 export default function LibraryCatalog() {
-  const allBooks = [
-    { title: "Gray's Anatomy for Students", author: "Richard L. Drake", category: "Anatomy", cover: "bg-blue-600", edition: "4th Edition", pages: 1168, readers: 342, rating: 4.9, year: 2024 },
-    { title: "Guyton & Hall Medical Physiology", author: "John E. Hall", category: "Physiology", cover: "bg-red-800", edition: "14th Edition", pages: 1116, readers: 289, rating: 4.8, year: 2023 },
-    { title: "Robbins Basic Pathology", author: "Vinay Kumar", category: "Pathology", cover: "bg-purple-800", edition: "10th Edition", pages: 952, readers: 215, rating: 4.7, year: 2022 },
-    { title: "Netter's Clinical Anatomy", author: "John T. Hansen", category: "Anatomy", cover: "bg-emerald-700", edition: "4th Edition", pages: 624, readers: 198, rating: 4.8, year: 2023 },
-    { title: "Langman's Medical Embryology", author: "T.W. Sadler", category: "Embryology", cover: "bg-teal-700", edition: "14th Edition", pages: 410, readers: 176, rating: 4.6, year: 2024 },
-    { title: "Harper's Illustrated Biochemistry", author: "Victor W. Rodwell", category: "Biochemistry", cover: "bg-amber-700", edition: "32nd Edition", pages: 832, readers: 204, rating: 4.5, year: 2023 },
-    { title: "Snell's Clinical Neuroanatomy", author: "Ryan Splittgerber", category: "Anatomy", cover: "bg-slate-700", edition: "8th Edition", pages: 544, readers: 154, rating: 4.6, year: 2024 },
-    { title: "KD Tripathi Pharmacology", author: "KD Tripathi", category: "Pharmacology", cover: "bg-rose-700", edition: "8th Edition", pages: 964, readers: 312, rating: 4.7, year: 2022 },
-    { title: "Jawetz Medical Microbiology", author: "Geo F. Brooks", category: "Microbiology", cover: "bg-cyan-700", edition: "28th Edition", pages: 880, readers: 189, rating: 4.5, year: 2023 },
-    { title: "Park's Preventive Medicine", author: "K. Park", category: "Community Med.", cover: "bg-lime-700", edition: "26th Edition", pages: 934, readers: 143, rating: 4.4, year: 2024 },
-    { title: "Principles of Surgery - Schwartz", author: "F. Charles Brunicardi", category: "Surgery", cover: "bg-orange-800", edition: "11th Edition", pages: 2088, readers: 98, rating: 4.8, year: 2024 },
-    { title: "Harrison's Internal Medicine", author: "J. Larry Jameson", category: "Medicine", cover: "bg-indigo-800", edition: "21st Edition", pages: 3512, readers: 267, rating: 4.9, year: 2023 },
-  ];
+  const [query, setQuery] = useState('');
+  const [phase, setPhase] = useState<PhaseFilter>('All');
+  const [subject, setSubject] = useState('All');
+  const [sort, setSort] = useState<SortKey>('subject');
 
-  const departments = ['All', 'Anatomy', 'Physiology', 'Biochemistry', 'Pathology', 'Pharmacology', 'Microbiology', 'Surgery', 'Medicine'];
+  const subjectOptions = useMemo(() => subjectsForPhase(phase), [phase]);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    const list = books.filter((b) => {
+      if (phase !== 'All' && b.phase !== phase) return false;
+      if (subject !== 'All' && b.subject !== subject) return false;
+      if (q && !`${b.title} ${b.author} ${b.subject} ${b.edition ?? ''}`.toLowerCase().includes(q)) return false;
+      return true;
+    });
+    const sorted = [...list];
+    if (sort === 'title') sorted.sort((a, b) => a.title.localeCompare(b.title));
+    else if (sort === 'rating') sorted.sort((a, b) => b.rating - a.rating);
+    else if (sort === 'readers') sorted.sort((a, b) => b.readers - a.readers);
+    else sorted.sort((a, b) => PHASES.indexOf(a.phase) - PHASES.indexOf(b.phase) || a.subject.localeCompare(b.subject) || a.title.localeCompare(b.title));
+    return sorted;
+  }, [query, phase, subject, sort]);
+
+  const selectPhase = (p: PhaseFilter) => {
+    setPhase(p);
+    setSubject('All'); // reset subject when phase changes
+  };
+
+  const hasFilters = query !== '' || phase !== 'All' || subject !== 'All';
+  const clearAll = () => { setQuery(''); setPhase('All'); setSubject('All'); };
 
   return (
     <div className="flex flex-col gap-6 w-full pb-10">
@@ -27,81 +56,134 @@ export default function LibraryCatalog() {
         <div>
           <Link href="/library" className="text-sm text-brand-primary-blue hover:underline mb-1 inline-block font-bold">← Library Home</Link>
           <h1 className="text-3xl font-black tracking-tight text-gray-900">Book Catalog</h1>
-          <p className="mt-1 text-sm text-gray-500 font-medium">Showing <strong className="text-gray-900">134 books</strong> across 8 departments</p>
+          <p className="mt-1 text-sm text-gray-500 font-medium">
+            <strong className="text-gray-900">{totalBooks}</strong> e-books across <strong className="text-gray-900">{totalSubjects}</strong> subjects · BMDC MBBS curriculum
+          </p>
         </div>
         <div className="flex items-center gap-3">
           <div className="relative w-full sm:w-72 font-sans">
-            <input 
-              type="text" 
-              placeholder="Search by title, author, ISBN..." 
-              className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-brand-primary-blue focus:ring-1 focus:ring-brand-primary-blue/20 transition-all font-medium text-gray-700 shadow-sm"
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search title, author, edition..."
+              className="w-full pl-10 pr-9 py-2.5 bg-white border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-brand-primary-blue focus:ring-1 focus:ring-brand-primary-blue/20 transition-all font-medium text-gray-700 shadow-sm"
             />
             <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-3" />
+            {query && (
+              <button onClick={() => setQuery('')} className="absolute right-3 top-2.5 p-0.5 text-gray-400 hover:text-gray-600" aria-label="Clear search">
+                <X className="w-4 h-4" />
+              </button>
+            )}
           </div>
-          <button className="p-2.5 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition shadow-sm">
-            <SlidersHorizontal className="w-4 h-4 text-gray-600" />
-          </button>
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value as SortKey)}
+            className="py-2.5 px-3 bg-white border border-gray-300 rounded-xl text-sm font-semibold text-gray-600 shadow-sm focus:outline-none focus:border-brand-primary-blue cursor-pointer"
+            aria-label="Sort books"
+          >
+            <option value="subject">By Phase & Subject</option>
+            <option value="title">Title A–Z</option>
+            <option value="rating">Top Rated</option>
+            <option value="readers">Most Read</option>
+          </select>
         </div>
       </div>
 
-      {/* Department Filter Pills */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar">
+      {/* Phase filter pills */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar">
         <Filter className="w-4 h-4 text-gray-400 shrink-0" />
-        {departments.map((dept, i) => (
-          <button key={i} className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
-            i === 0 
-              ? 'bg-gray-900 text-white shadow-sm'
-              : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 hover:border-gray-300'
-          }`}>
-            {dept}
+        {(['All', ...PHASES] as PhaseFilter[]).map((p) => {
+          const active = phase === p;
+          return (
+            <button
+              key={p}
+              onClick={() => selectPhase(p)}
+              className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                active ? 'bg-gray-900 text-white shadow-sm' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 hover:border-gray-300'
+              }`}
+            >
+              {p}
+              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${active ? 'bg-white/20' : 'bg-gray-100 text-gray-500'}`}>{countByPhase(p)}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Subject sub-filter */}
+      <div className="flex flex-wrap items-center gap-2 -mt-2">
+        <button
+          onClick={() => setSubject('All')}
+          className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all ${subject === 'All' ? 'bg-brand-primary-blue text-white' : 'bg-white border border-gray-200 text-gray-500 hover:bg-gray-50'}`}
+        >
+          All Subjects
+        </button>
+        {subjectOptions.map((s) => (
+          <button
+            key={s}
+            onClick={() => setSubject(s)}
+            className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all ${subject === s ? 'bg-brand-primary-blue text-white' : 'bg-white border border-gray-200 text-gray-500 hover:bg-gray-50'}`}
+          >
+            {s}
           </button>
         ))}
       </div>
 
-      {/* Book Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {allBooks.map((book, idx) => (
-          <div key={idx} className="bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col overflow-hidden group hover:shadow-lg transition-all">
-            <div className={`h-40 w-full ${book.cover} flex flex-col items-center justify-center p-4 text-center relative`}>
-               <div className="absolute top-2.5 right-2.5 bg-black/40 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-1 rounded-md flex items-center gap-1">
-                 <Lock className="w-2.5 h-2.5" /> DRM
-               </div>
-               <div className="absolute top-2.5 left-2.5 bg-white/20 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-1 rounded-md">{book.edition}</div>
-               <BookOpen className="w-7 h-7 text-white/40 mb-2" />
-               <h3 className="text-white font-serif font-bold text-sm leading-tight line-clamp-2">{book.title}</h3>
-            </div>
-            <div className="p-4 flex flex-col flex-1">
-               <span className="text-[10px] font-bold uppercase tracking-wider text-brand-primary-blue mb-1">{book.category} • {book.year}</span>
-               <h4 className="font-bold text-gray-900 leading-snug mb-0.5 text-sm line-clamp-1">{book.title}</h4>
-               <p className="text-xs text-gray-500 font-medium mb-3">{book.author}</p>
-               
-               <div className="flex items-center gap-3 text-[11px] text-gray-400 font-bold mb-3">
-                 <span className="flex items-center gap-1"><Star className="w-3 h-3 text-amber-400 fill-amber-400" /> {book.rating}</span>
-                 <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {book.readers}</span>
-                 <span>{book.pages} pg</span>
-               </div>
-               
-               <div className="mt-auto flex gap-2">
-                 <Link href="/library/reader" className="flex-1 bg-brand-primary-blue text-white py-2 rounded-lg text-xs font-bold hover:bg-blue-700 transition shadow-sm text-center">
-                   Read Online
-                 </Link>
-                 <button className="p-2 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed" title="Download disabled">
-                   <DownloadCloud className="w-4 h-4" />
-                 </button>
-               </div>
-            </div>
-          </div>
-        ))}
+      {/* Result count + clear */}
+      <div className="flex items-center justify-between -mt-2">
+        <p className="text-sm font-semibold text-gray-500">
+          Showing <strong className="text-gray-900">{filtered.length}</strong> {filtered.length === 1 ? 'book' : 'books'}
+          {phase !== 'All' && <> in <strong className="text-gray-900">{phase}</strong></>}
+          {subject !== 'All' && <> · {subject}</>}
+        </p>
+        {hasFilters && (
+          <button onClick={clearAll} className="text-xs font-bold text-brand-primary-blue hover:underline flex items-center gap-1">
+            <X className="w-3 h-3" /> Clear filters
+          </button>
+        )}
       </div>
 
-      {/* Pagination */}
-      <div className="flex items-center justify-center gap-2 pt-4">
-        <button className="px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm font-bold text-gray-500 hover:bg-gray-50">Prev</button>
-        <button className="px-3 py-2 bg-gray-900 text-white rounded-lg text-sm font-bold shadow-sm">1</button>
-        <button className="px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm font-bold text-gray-500 hover:bg-gray-50">2</button>
-        <button className="px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm font-bold text-gray-500 hover:bg-gray-50">3</button>
-        <button className="px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm font-bold text-gray-500 hover:bg-gray-50">Next</button>
-      </div>
+      {/* Book grid */}
+      {filtered.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {filtered.map((book) => (
+            <div key={book.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col overflow-hidden group hover:shadow-lg transition-all">
+              <BookCover book={book} className="h-44" />
+              <div className="p-4 flex flex-col flex-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-brand-primary-blue mb-1">{book.subject} • {book.year}</span>
+                <h4 className="font-bold text-gray-900 leading-snug mb-0.5 text-sm line-clamp-2">{book.title}</h4>
+                <p className="text-xs text-gray-500 font-medium mb-3">{book.author}</p>
+
+                <div className="flex items-center gap-3 text-[11px] text-gray-400 font-bold mb-3">
+                  <span className="flex items-center gap-1"><Star className="w-3 h-3 text-amber-400 fill-amber-400" /> {book.rating}</span>
+                  <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {book.readers}</span>
+                  <span>{book.pages.toLocaleString()} pg</span>
+                </div>
+
+                <div className="mt-auto flex gap-2">
+                  <Link href={`/library/reader?id=${book.id}`} className="flex-1 bg-brand-primary-blue text-white py-2 rounded-lg text-xs font-bold hover:bg-blue-700 transition shadow-sm text-center">
+                    Read Online
+                  </Link>
+                  <button className="p-2 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed" title="Download disabled — DRM protected">
+                    <DownloadCloud className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center py-20 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center mb-4">
+            <BookOpen className="w-7 h-7 text-gray-400" />
+          </div>
+          <h3 className="text-base font-bold text-gray-900">No books match your filters</h3>
+          <p className="text-sm text-gray-500 mt-1 max-w-sm">Try a different phase or subject, or clear the search.</p>
+          <button onClick={clearAll} className="mt-4 px-4 py-2 bg-brand-primary-blue text-white text-sm font-bold rounded-xl hover:bg-blue-700 transition">
+            Clear all filters
+          </button>
+        </div>
+      )}
     </div>
   );
 }
