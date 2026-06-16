@@ -30,6 +30,16 @@ const getGrade = (percent: number) => {
   return { letter, gp: gpa, ...(gradeStyle[letter] ?? gradeStyle['F']) };
 };
 
+/* Letter band for a cumulative GPA (average of subject grade points). */
+const gpaToLetter = (gpa: number): string => {
+  if (gpa >= 5.0) return 'A+';
+  if (gpa >= 4.5) return 'A';
+  if (gpa >= 4.0) return 'A-';
+  if (gpa >= 3.5) return 'B+';
+  if (gpa >= 3.0) return 'B';
+  return 'F';
+};
+
 /* ── Term Results ─── */
 interface SubjectResult {
   name: string;
@@ -81,7 +91,10 @@ export default function ExamResultsPage() {
   const overallOutOf = results.reduce((sum, r) => sum + r.outOf, 0);
   const overallExactPercent = (overallTotal / overallOutOf) * 100;
   const overallPercent = Math.round(overallExactPercent * 10) / 10;
-  const overallGrade = getGrade(overallExactPercent);
+  // Cumulative GPA = average of the per-subject grade points (matches the footer).
+  const cumulativeGpa = results.reduce((sum, r) => sum + getGrade((r.grandTotal / r.outOf) * 100).gp, 0) / results.length;
+  const overallLetter = gpaToLetter(cumulativeGpa);
+  const overallGrade = { letter: overallLetter, gp: cumulativeGpa, ...(gradeStyle[overallLetter] ?? gradeStyle['F']) };
   const allPassed = results.every((r) => {
     const wp = (r.written.total / r.written.outOf) * 100;
     const op = (r.oral.total / r.oral.outOf) * 100;
@@ -143,7 +156,7 @@ export default function ExamResultsPage() {
               <div className={`inline-flex px-4 py-2 rounded-xl ${overallGrade.bg} border ${overallGrade.border}`}>
                 <span className={`text-2xl font-black ${overallGrade.color}`}>{overallGrade.letter}</span>
               </div>
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mt-1">GPA {overallGrade.gp.toFixed(2)}</p>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mt-1">CGPA {overallGrade.gp.toFixed(2)}</p>
             </div>
           </div>
         </div>
@@ -272,7 +285,7 @@ export default function ExamResultsPage() {
         <div className="px-6 py-4 bg-gradient-to-r from-brand-primary-blue to-blue-700 flex items-center justify-between">
           <span className="text-sm font-bold text-white/70">Cumulative GPA (Phase III)</span>
           <span className="text-2xl font-black text-white">
-            {(results.reduce((sum, r) => sum + getGrade((r.grandTotal / r.outOf) * 100).gp, 0) / results.length).toFixed(2)}
+            {cumulativeGpa.toFixed(2)}
           </span>
         </div>
       </div>
