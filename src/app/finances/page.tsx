@@ -3,7 +3,7 @@ import { Wallet, Download, Clock, CheckCircle2, History, CreditCard } from 'luci
 
 export default function FinancesPage() {
   const transactions = [
-    { id: 'TRX-9482', description: 'Tuition Fee - Term 4 Installment 1', date: 'April 02, 2026', amount: 45000, status: 'Completed' },
+    { id: 'TRX-9482', description: 'Tuition Fee — 4th Year (Phase III) Installment 1', date: 'April 02, 2026', amount: 45000, status: 'Completed' },
     { id: 'TRX-9481', description: 'Hostel Rent - April', date: 'March 28, 2026', amount: 8500, status: 'Completed' },
     { id: 'TRX-9210', description: 'Lab Equipment Fee', date: 'January 15, 2026', amount: 3000, status: 'Completed' },
   ];

@@ -1,13 +1,9 @@
 import React from 'react';
 import { BookOpen, FileText, CheckCircle2, Clock, PlayCircle } from 'lucide-react';
+import { currentCourses, student, phaseCompletion } from '@/data/academics';
 
 export default function AcademicsPage() {
-  const currentCourses = [
-    { id: 'MBB-401', name: 'General Anatomy', instructor: 'Dr. Shahin Rahman', credits: 4, progress: 65 },
-    { id: 'MBB-402', name: 'Clinical Physiology', instructor: 'Dr. Nusrat Jahan', credits: 4, progress: 40 },
-    { id: 'MBB-403', name: 'Biochemistry II', instructor: 'Dr. Anisur Miah', credits: 3, progress: 85 },
-    { id: 'MBB-404', name: 'Community Medicine', instructor: 'Dr. Kamal Hossain', credits: 3, progress: 20 },
-  ];
+  const phaseProgress = phaseCompletion();
 
   return (
     <div className="flex flex-col gap-6 w-full pb-10">
@@ -19,24 +15,24 @@ export default function AcademicsPage() {
       {/* Progress Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex flex-col gap-2">
-          <p className="text-sm font-semibold text-gray-500">Term Progress</p>
+          <p className="text-sm font-semibold text-gray-500">{student.phase} Progress</p>
           <div className="flex items-baseline gap-2">
-            <h2 className="text-3xl font-bold text-gray-900">Week 6</h2>
-            <span className="text-sm font-medium text-gray-500">/ 14</span>
+            <h2 className="text-3xl font-bold text-gray-900">{phaseProgress}%</h2>
+            <span className="text-sm font-medium text-gray-500">{student.phaseLabel}</span>
           </div>
           <div className="w-full bg-gray-100 rounded-full h-2.5 mt-2">
-            <div className="bg-brand-primary-blue h-2.5 rounded-full" style={{ width: '42%' }}></div>
+            <div className="bg-brand-primary-blue h-2.5 rounded-full" style={{ width: `${phaseProgress}%` }}></div>
           </div>
         </div>
         <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex flex-col gap-2">
-           <p className="text-sm font-semibold text-gray-500">Completed Credits</p>
-           <h2 className="text-3xl font-bold text-gray-900">86 <span className="text-sm font-normal text-gray-500">cr</span></h2>
+           <p className="text-sm font-semibold text-gray-500">Professional Exams</p>
+           <h2 className="text-3xl font-bold text-gray-900">{student.professionalExamsPassed}</h2>
         </div>
         <div className="bg-brand-primary-green/5 rounded-2xl p-6 border border-brand-primary-green/20 shadow-sm flex items-center justify-between">
            <div>
              <p className="text-sm font-bold text-brand-primary-green mb-1">Academic Status</p>
              <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-               <CheckCircle2 className="w-5 h-5 text-brand-primary-green" /> Good Standing
+               <CheckCircle2 className="w-5 h-5 text-brand-primary-green" /> {student.enrollmentStatus} Student
              </h2>
            </div>
         </div>
@@ -45,12 +41,12 @@ export default function AcademicsPage() {
       {/* Course List */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm mt-4 overflow-hidden">
         <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-          <h3 className="text-lg font-bold text-gray-900">Current Semester Courses</h3>
+          <h3 className="text-lg font-bold text-gray-900">Current Phase Courses</h3>
           <button className="text-sm font-semibold text-brand-primary-blue hover:underline">Download Transcript</button>
         </div>
         <div className="divide-y divide-gray-100">
           {currentCourses.map((course) => (
-            <div key={course.id} className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-gray-50/30 transition-colors">
+            <div key={course.code} className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-gray-50/30 transition-colors">
               <div className="flex items-start gap-4 flex-1">
                 <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center text-gray-500 shrink-0">
                   <BookOpen className="w-5 h-5" />
@@ -58,9 +54,9 @@ export default function AcademicsPage() {
                 <div>
                   <h4 className="text-base font-bold text-gray-900 mb-1">{course.name}</h4>
                   <div className="flex flex-wrap items-center gap-3 text-xs font-medium text-gray-500">
-                    <span className="bg-gray-100 px-2.5 py-0.5 rounded-full">{course.id}</span>
-                    <span className="flex items-center gap-1.5"><FileText className="w-3.5 h-3.5" /> {course.credits} Credits</span>
-                    <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {course.instructor}</span>
+                    <span className="bg-gray-100 px-2.5 py-0.5 rounded-full">{course.code}</span>
+                    <span className="flex items-center gap-1.5"><FileText className="w-3.5 h-3.5" /> {course.phase}</span>
+                    <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {course.faculty[0].name}</span>
                   </div>
                 </div>
               </div>

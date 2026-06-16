@@ -1,19 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
   CheckCircle2,
   XCircle,
-  Clock,
   AlertTriangle,
   CalendarDays,
   TrendingUp,
   BarChart3,
   ChevronLeft,
   ChevronRight,
-  Info,
-  Filter,
 } from 'lucide-react';
+import { student, currentCourses } from '@/data/academics';
 
 type AttendanceStatus = 'present' | 'absent' | 'late' | 'excused' | null;
 
@@ -29,14 +27,39 @@ interface SubjectAttendance {
   shortageRisk: boolean;
 }
 
-const subjects: SubjectAttendance[] = [
-  { name: 'General Anatomy',     code: 'ANAT-101', total: 48, attended: 42, absent: 4, late: 2, percentage: 91.7, threshold: 75, shortageRisk: false },
-  { name: 'Physiology',          code: 'PHYS-101', total: 44, attended: 39, absent: 3, late: 2, percentage: 88.6, threshold: 75, shortageRisk: false },
-  { name: 'Biochemistry',        code: 'BIOC-101', total: 40, attended: 34, absent: 5, late: 1, percentage: 85.0, threshold: 75, shortageRisk: false },
-  { name: 'Microbiology',        code: 'MICR-201', total: 36, attended: 28, absent: 6, late: 2, percentage: 77.8, threshold: 75, shortageRisk: true },
-  { name: 'Community Medicine',  code: 'COMM-101', total: 30, attended: 27, absent: 2, late: 1, percentage: 90.0, threshold: 75, shortageRisk: false },
-  { name: 'Pharmacology',        code: 'PHAR-201', total: 32, attended: 23, absent: 7, late: 2, percentage: 71.9, threshold: 75, shortageRisk: true },
-];
+const ELIGIBILITY_THRESHOLD = 75;
+
+/* Per-subject attendance derived from the current Phase III courses. Class
+ * counts are illustrative breakdowns that reconcile to each course.attendance. */
+const subjectClassTotals: Record<string, number> = {
+  'CMPH-301': 42,
+  'PATH-302': 50,
+  'MICRO-303': 44,
+};
+
+const subjects: SubjectAttendance[] = currentCourses.map((course) => {
+  const total = subjectClassTotals[course.code] ?? 40;
+  const attended = Math.round((course.attendance / 100) * total);
+  const missed = total - attended;
+  const late = Math.min(missed, Math.round(missed / 3));
+  const absent = missed - late;
+  return {
+    name: course.shortName,
+    code: course.code,
+    total,
+    attended,
+    absent,
+    late,
+    percentage: course.attendance,
+    threshold: ELIGIBILITY_THRESHOLD,
+    shortageRisk: course.attendance < ELIGIBILITY_THRESHOLD,
+  };
+});
+
+const allSubjectsEligible = subjects.every((s) => s.percentage >= s.threshold);
+const lowestSubject = subjects.reduce((min, s) =>
+  s.percentage < min.percentage ? s : min
+, subjects[0]);
 
 /* Calendar mock — April 2026 */
 const calendarDays: (AttendanceStatus | null)[][] = [
@@ -54,12 +77,18 @@ const statusColors: Record<string, string> = {
   excused: 'bg-brand-primary-blue',
 };
 
+/* Overall attendance is the official figure from the student record. Class
+ * counts are illustrative and reconcile to student.attendance. */
+const overallTotalClasses = subjects.reduce((sum, s) => sum + s.total, 0);
+const overallAttended = Math.round((student.attendance / 100) * overallTotalClasses);
+const overallMissed = overallTotalClasses - overallAttended;
+const overallLate = subjects.reduce((sum, s) => sum + s.late, 0);
 const overallStats = {
-  totalClasses: 230,
-  attended: 193,
-  absent: 27,
-  late: 10,
-  percentage: 83.9,
+  totalClasses: overallTotalClasses,
+  attended: overallAttended,
+  absent: overallMissed - overallLate,
+  late: overallLate,
+  percentage: student.attendance,
 };
 
 export default function StudentAttendancePage() {
@@ -74,7 +103,7 @@ export default function StudentAttendancePage() {
             </div>
             <div>
               <h1 className="text-xl font-black text-gray-900 tracking-tight">My Attendance</h1>
-              <p className="text-xs font-medium text-gray-400">Phase I — Spring 2026 Semester</p>
+              <p className="text-xs font-medium text-gray-400">{student.phase} — Session {student.session}</p>
             </div>
           </div>
         </div>
@@ -241,16 +270,28 @@ export default function StudentAttendancePage() {
             </div>
           </div>
 
-          {/* Warning Banner */}
-          <div className="mx-5 mb-5 p-3.5 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-2.5">
-            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-            <div>
-              <p className="text-xs font-bold text-amber-800">Attendance Warning</p>
-              <p className="text-[11px] text-amber-600 mt-0.5">
-                Pharmacology attendance is <strong>below 75%</strong>. You need 9 more classes without absence to reach eligibility.
-              </p>
+          {/* Eligibility Banner */}
+          {allSubjectsEligible ? (
+            <div className="mx-5 mb-5 p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl flex items-start gap-2.5">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-bold text-emerald-800">Eligible for the {student.professionalExam}</p>
+                <p className="text-[11px] text-emerald-600 mt-0.5">
+                  All current subjects are <strong>above the 75% threshold</strong>. You are on track for exam eligibility — keep it up.
+                </p>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="mx-5 mb-5 p-3.5 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-2.5">
+              <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-bold text-amber-800">Attendance Warning</p>
+                <p className="text-[11px] text-amber-600 mt-0.5">
+                  {lowestSubject.name} attendance is <strong>below 75%</strong>. Attend the remaining classes without absence to reach eligibility.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

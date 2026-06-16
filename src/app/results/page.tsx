@@ -13,15 +13,21 @@ import {
   Info,
   Printer,
 } from 'lucide-react';
+import { percentToGpa } from '@/data/academics';
 
-/* ── GPA lookup ─── */
+/* ── GPA lookup (letter + gpa from the shared BMDC 5.00 scale, no rounding) ─── */
+const gradeStyle: Record<string, { color: string; bg: string; border: string }> = {
+  'A+': { color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
+  'A':  { color: 'text-blue-700',    bg: 'bg-blue-50',    border: 'border-blue-200' },
+  'A-': { color: 'text-sky-700',     bg: 'bg-sky-50',     border: 'border-sky-200' },
+  'B+': { color: 'text-amber-700',   bg: 'bg-amber-50',   border: 'border-amber-200' },
+  'B':  { color: 'text-orange-700',  bg: 'bg-orange-50',  border: 'border-orange-200' },
+  'F':  { color: 'text-[#ed1c24]',   bg: 'bg-red-50',     border: 'border-red-200' },
+};
+
 const getGrade = (percent: number) => {
-  if (percent >= 80) return { letter: 'A+', gp: 5.0, color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' };
-  if (percent >= 75) return { letter: 'A',  gp: 4.5, color: 'text-blue-700',    bg: 'bg-blue-50',    border: 'border-blue-200' };
-  if (percent >= 70) return { letter: 'A-', gp: 4.0, color: 'text-sky-700',     bg: 'bg-sky-50',     border: 'border-sky-200' };
-  if (percent >= 65) return { letter: 'B+', gp: 3.5, color: 'text-amber-700',   bg: 'bg-amber-50',   border: 'border-amber-200' };
-  if (percent >= 60) return { letter: 'B',  gp: 3.0, color: 'text-orange-700',  bg: 'bg-orange-50',  border: 'border-orange-200' };
-  return               { letter: 'F',  gp: 0.0, color: 'text-[#ed1c24]',  bg: 'bg-red-50',     border: 'border-red-200' };
+  const { letter, gpa } = percentToGpa(percent);
+  return { letter, gp: gpa, ...(gradeStyle[letter] ?? gradeStyle['F']) };
 };
 
 /* ── Term Results ─── */
@@ -73,8 +79,9 @@ const formativeDetails = {
 export default function ExamResultsPage() {
   const overallTotal = results.reduce((sum, r) => sum + r.grandTotal, 0);
   const overallOutOf = results.reduce((sum, r) => sum + r.outOf, 0);
-  const overallPercent = Math.round((overallTotal / overallOutOf) * 100 * 10) / 10;
-  const overallGrade = getGrade(overallPercent);
+  const overallExactPercent = (overallTotal / overallOutOf) * 100;
+  const overallPercent = Math.round(overallExactPercent * 10) / 10;
+  const overallGrade = getGrade(overallExactPercent);
   const allPassed = results.every((r) => {
     const wp = (r.written.total / r.written.outOf) * 100;
     const op = (r.oral.total / r.oral.outOf) * 100;
@@ -144,8 +151,9 @@ export default function ExamResultsPage() {
 
       {/* Subject-wise Detailed Results */}
       {results.map((subj) => {
-        const totalPercent = Math.round((subj.grandTotal / subj.outOf) * 100 * 10) / 10;
-        const grade = getGrade(totalPercent);
+        const exactPercent = (subj.grandTotal / subj.outOf) * 100;
+        const totalPercent = Math.round(exactPercent * 10) / 10;
+        const grade = getGrade(exactPercent);
         const writtenPercent = Math.round((subj.written.total / subj.written.outOf) * 100);
         const oralPercent = Math.round((subj.oral.total / subj.oral.outOf) * 100);
         const practicalPercent = Math.round((subj.practical.total / subj.practical.outOf) * 100);
@@ -238,8 +246,9 @@ export default function ExamResultsPage() {
             </thead>
             <tbody className="divide-y divide-gray-50">
               {results.map((subj) => {
-                const pct = Math.round((subj.grandTotal / subj.outOf) * 100 * 10) / 10;
-                const g = getGrade(pct);
+                const exact = (subj.grandTotal / subj.outOf) * 100;
+                const pct = Math.round(exact * 10) / 10;
+                const g = getGrade(exact);
                 return (
                   <tr key={subj.name} className="hover:bg-slate-50">
                     <td className="px-6 py-3.5 text-sm font-bold text-gray-900">{subj.name}</td>
@@ -263,7 +272,7 @@ export default function ExamResultsPage() {
         <div className="px-6 py-4 bg-gradient-to-r from-brand-primary-blue to-blue-700 flex items-center justify-between">
           <span className="text-sm font-bold text-white/70">Cumulative GPA (Phase III)</span>
           <span className="text-2xl font-black text-white">
-            {(results.reduce((sum, r) => sum + getGrade(Math.round((r.grandTotal / r.outOf) * 100)).gp, 0) / results.length).toFixed(2)}
+            {(results.reduce((sum, r) => sum + getGrade((r.grandTotal / r.outOf) * 100).gp, 0) / results.length).toFixed(2)}
           </span>
         </div>
       </div>

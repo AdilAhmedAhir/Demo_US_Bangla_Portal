@@ -14,23 +14,24 @@ import {
   CalendarDays,
   Info,
 } from 'lucide-react';
+import { currentCourses, getCourse } from '@/data/academics';
 
-/* ── Mock Past Requests ─── */
+/* ── Past Makeup Requests (Phase III current subjects) ─── */
 const pastRequests = [
   {
     id: 'MKP-2026-001',
-    subject: 'Pathology',
-    component: 'Written (SAQ/SEQ)',
-    reason: 'Medical emergency — hospitalization during exam week',
+    subject: getCourse('CMPH-301')?.name ?? 'Community Medicine & Public Health',
+    component: 'Item Card (Written SAQ/SEQ)',
+    reason: 'Item exam failed — makeup pending for Item Card 3',
     submittedDate: 'Mar 15, 2026',
     status: 'approved' as const,
     examDate: 'Apr 20, 2026',
   },
   {
     id: 'MKP-2025-014',
-    subject: 'Pharmacology',
-    component: 'Practical (OSPE)',
-    reason: 'Failed OSPE component — scored 28/50 (56%)',
+    subject: getCourse('MICRO-303')?.name ?? 'Microbiology',
+    component: 'OSPE (Practical)',
+    reason: 'Uncleared item cards — 3 of 7 cleared, re-sit for Item Card 4',
     submittedDate: 'Nov 8, 2025',
     status: 'completed' as const,
     examDate: 'Dec 5, 2025',
@@ -44,25 +45,21 @@ const statusConfig = {
   completed: { label: 'Completed',    color: 'text-brand-primary-blue', bg: 'bg-blue-50', border: 'border-blue-200', icon: CheckCircle2 },
 };
 
-const phase3Subjects = [
-  'Community Medicine & Public Health',
-  'Pathology',
-  'Microbiology',
-];
+const phase3Subjects = currentCourses.map((c) => `${c.name} (${c.code})`);
 
 const examComponents = [
-  'Written — MCQ (MT/F + SBA)',
-  'Written — SAQ / SEQ',
+  'Item Card',
+  'Term Examination',
   'Structured Oral Examination (SOE)',
-  'Practical — OSPE',
-  'Practical — Traditional',
+  'OSPE (Practical)',
+  'Formative Assessment',
   'Full Subject (All Components)',
 ];
 
 const reasonTemplates = [
-  'I failed this component and would like to reattempt.',
+  'I failed this item card and would like to reattempt.',
   'I was unable to attend due to medical reasons.',
-  'I missed the exam due to a family emergency.',
+  'I missed the assessment due to a family emergency.',
   'Other (please specify below)',
 ];
 
@@ -98,8 +95,8 @@ export default function MakeupExamPage() {
         <div>
           <p className="text-sm font-bold text-gray-900">Makeup Exam Policy</p>
           <p className="text-xs text-gray-600 mt-1">
-            Students who fail any component (Written/Oral/Practical) must pass the supplementary exam. 
-            Pass marks: <strong>60% of total marks</strong> per component. Requests are reviewed by the Exam Controller 
+            Students who fail any component (Item Card / Term / SOE / OSPE) must clear the makeup assessment.
+            Pass marks: <strong>60% of total marks</strong> per component on the BMDC 5.00 scale. Requests are reviewed by the Exam Controller
             and require HOD approval. Processing time: 3–5 working days.
           </p>
         </div>
@@ -249,7 +246,7 @@ export default function MakeupExamPage() {
               Important
             </p>
             <p className="text-[11px] text-amber-700">
-              If a student fails a term exam, they must pass the supplementary term exam before appearing in the Third Professional Examination.
+              If a student fails a Term Examination or leaves item cards uncleared, they must clear the makeup before appearing in the Third Professional MBBS Examination.
             </p>
           </div>
         </div>

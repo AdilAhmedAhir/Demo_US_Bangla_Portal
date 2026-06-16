@@ -69,6 +69,7 @@ const cognitiveBreakdown = [
 
 /* ── Eligibility Requirements ─── */
 const eligibilityReqs = [
+  { label: 'Passed the Second Professional examination', icon: CheckCircle2 },
   { label: 'Complete all Item Card topics',          icon: CheckCircle2 },
   { label: '≥ 75% attendance in all class categories', icon: CheckCircle2 },
   { label: 'Pass all term examinations',              icon: CheckCircle2 },

@@ -53,21 +53,29 @@ export interface StudentProfile {
   phaseLabel: string;    // "Para-Clinical Part 2"
   professionalExam: string;
   session: string;       // "2022–23"
+  batch: string;
+  enrollmentDate: string;
   enrollmentStatus: string; // "Regular"
   attendance: number;
+  gpa: number;           // cumulative, BMDC 5.00 scale
+  professionalExamsPassed: string; // e.g. "2 of 4"
   currentBalance: number;
 }
 
 export const student: StudentProfile = {
   name: 'Adil Student',
-  studentId: 'USB-MBBS-1947',
+  studentId: 'USB-2604',
   year: '4th Year',
   phase: 'Phase III',
   phaseLabel: 'Para-Clinical Part 2',
   professionalExam: 'Third Professional MBBS',
   session: '2022–23',
+  batch: 'Batch 14 (2022–2027)',
+  enrollmentDate: '10 January 2022',
   enrollmentStatus: 'Regular',
   attendance: 85,
+  gpa: 4.33,
+  professionalExamsPassed: '2 of 4',
   currentBalance: 45000,
 };
 
@@ -199,3 +207,79 @@ export function phaseCompletion(): number {
   const total = currentCourses.reduce((sum, c) => sum + c.progress, 0);
   return Math.round(total / currentCourses.length);
 }
+
+/* ── BMDC GPA scale (out of 5.00). Do NOT round the percentage before grading. ── */
+export function percentToGpa(pct: number): { letter: string; gpa: number } {
+  if (pct >= 80) return { letter: 'A+', gpa: 5.0 };
+  if (pct >= 75) return { letter: 'A', gpa: 4.5 };
+  if (pct >= 70) return { letter: 'A-', gpa: 4.0 };
+  if (pct >= 65) return { letter: 'B+', gpa: 3.5 };
+  if (pct >= 60) return { letter: 'B', gpa: 3.0 };
+  return { letter: 'F', gpa: 0.0 };
+}
+
+/* ── Weekly class schedule (Phase III) ── */
+export type ClassType = 'Lecture' | 'Practical' | 'Tutorial' | 'Clinical' | 'Integrated';
+export interface ClassSlot {
+  time: string;
+  subject: string;
+  code: string;
+  type: ClassType;
+  faculty: string;
+  room: string;
+}
+export const scheduleDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'] as const;
+export type ScheduleDay = (typeof scheduleDays)[number];
+
+export const weeklySchedule: Record<ScheduleDay, ClassSlot[]> = {
+  Sunday: [
+    { time: '09:00 – 10:00', subject: 'Pathology', code: 'PATH-302', type: 'Lecture', faculty: 'Prof. Dr. Abdul Karim', room: 'Lecture Gallery 2' },
+    { time: '10:15 – 12:15', subject: 'Microbiology', code: 'MICRO-303', type: 'Practical', faculty: 'Dr. Sharmin Akhter', room: 'Microbiology Lab 1' },
+    { time: '01:00 – 02:00', subject: 'Community Medicine & Public Health', code: 'CMPH-301', type: 'Lecture', faculty: 'Prof. Dr. Mahbubur Rahman', room: 'Lecture Gallery 1' },
+  ],
+  Monday: [
+    { time: '09:00 – 10:00', subject: 'Microbiology', code: 'MICRO-303', type: 'Lecture', faculty: 'Prof. Dr. Nasreen Begum', room: 'Lecture Gallery 2' },
+    { time: '10:15 – 12:15', subject: 'Pathology', code: 'PATH-302', type: 'Practical', faculty: 'Dr. Imran Hossain', room: 'Pathology Lab' },
+    { time: '02:00 – 04:00', subject: 'Clinical Posting — Medicine', code: 'CMPH-301', type: 'Clinical', faculty: 'Ward Unit-1', room: 'Medicine Ward' },
+  ],
+  Tuesday: [
+    { time: '09:00 – 10:00', subject: 'Community Medicine & Public Health', code: 'CMPH-301', type: 'Lecture', faculty: 'Dr. Farhana Akter', room: 'Lecture Gallery 1' },
+    { time: '10:15 – 11:15', subject: 'Pathology', code: 'PATH-302', type: 'Tutorial', faculty: 'Dr. Shirin Sultana', room: 'Tutorial Room 3' },
+    { time: '11:30 – 01:30', subject: 'Microbiology', code: 'MICRO-303', type: 'Practical', faculty: 'Dr. Mehjabin Chowdhury', room: 'Microbiology Lab 2' },
+  ],
+  Wednesday: [
+    { time: '09:00 – 11:00', subject: 'Integrated Teaching', code: '—', type: 'Integrated', faculty: 'Multi-disciplinary Panel', room: 'Seminar Hall' },
+    { time: '11:15 – 12:15', subject: 'Pathology', code: 'PATH-302', type: 'Lecture', faculty: 'Prof. Dr. Abdul Karim', room: 'Lecture Gallery 2' },
+    { time: '02:00 – 04:00', subject: 'Clinical Posting — Surgery', code: 'PATH-302', type: 'Clinical', faculty: 'Ward Unit-2', room: 'Surgery Ward' },
+  ],
+  Thursday: [
+    { time: '09:00 – 10:00', subject: 'Community Medicine & Public Health', code: 'CMPH-301', type: 'Lecture', faculty: 'Prof. Dr. Mahbubur Rahman', room: 'Lecture Gallery 1' },
+    { time: '10:15 – 12:15', subject: 'Microbiology', code: 'MICRO-303', type: 'Practical', faculty: 'Dr. Asaduzzaman Khan', room: 'Microbiology Lab 1' },
+    { time: '12:30 – 01:30', subject: 'COME — Community Field Visit', code: 'CMPH-301', type: 'Tutorial', faculty: 'Dr. Saiful Islam', room: 'Field Site' },
+  ],
+};
+
+/* ── Assessments (BMDC formative + term framing) ── */
+export type AssessmentType = 'Item Card' | 'Term Exam' | 'Formative' | 'SOE' | 'OSPE';
+export type AssessmentStatus = 'upcoming' | 'completed';
+export interface Assessment {
+  title: string;
+  subject: string;
+  code: string;
+  type: AssessmentType;
+  date: string;
+  status: AssessmentStatus;
+  score?: number; // achieved
+  total?: number; // out of
+}
+export const assessments: Assessment[] = [
+  { title: 'Microbiology — Item Card 2 (Makeup)', subject: 'Microbiology', code: 'MICRO-303', type: 'Item Card', date: 'Apr 18, 2026', status: 'upcoming' },
+  { title: 'Pathology — Term II Examination', subject: 'Pathology', code: 'PATH-302', type: 'Term Exam', date: 'Apr 24, 2026', status: 'upcoming' },
+  { title: 'Community Medicine — Term II Examination', subject: 'Community Medicine & Public Health', code: 'CMPH-301', type: 'Term Exam', date: 'May 02, 2026', status: 'upcoming' },
+  { title: 'Microbiology — Term I Examination', subject: 'Microbiology', code: 'MICRO-303', type: 'Term Exam', date: 'Feb 12, 2026', status: 'completed', score: 198, total: 300 },
+  { title: 'Pathology — Item Card 1', subject: 'Pathology', code: 'PATH-302', type: 'Item Card', date: 'Jan 28, 2026', status: 'completed', score: 16, total: 18 },
+  { title: 'Community Medicine — Formative Assessment', subject: 'Community Medicine & Public Health', code: 'CMPH-301', type: 'Formative', date: 'Jan 15, 2026', status: 'completed', score: 7, total: 10 },
+];
+
+export const upcomingAssessments = assessments.filter((a) => a.status === 'upcoming');
+export const completedAssessments = assessments.filter((a) => a.status === 'completed');

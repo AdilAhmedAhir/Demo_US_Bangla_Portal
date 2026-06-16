@@ -9,14 +9,13 @@ import {
   ClipboardList,
   Microscope,
   Bug,
-  Dna,
-  Shield,
-  Pill,
-  FlaskConical,
-  ScanSearch,
   AlertTriangle,
-  Info,
 } from 'lucide-react';
+import { getCourse } from '@/data/academics';
+
+const micro = getCourse('MICRO-303')!;
+// Microbiology signing faculty (real roster from the shared data model)
+const [microHead, microVirology, microImmunology, microBacteriology] = micro.faculty;
 
 interface ItemTopic {
   id: string;
@@ -51,11 +50,11 @@ const itemCards: ItemCard[] = [
       {
         name: 'General Bacteriology',
         topics: [
-          { id: 'gb1', title: 'Prokaryote & Eukaryote, Cell Wall Structure, Capsule, Flagella, Spore, Classification', completed: true, signedBy: 'Prof. Kamal Uddin', signedDate: 'Feb 15' },
-          { id: 'gb2', title: 'Growth & Death of Bacteria, Growth Curve, Generation Time, O₂ Classification', completed: true, signedBy: 'Prof. Kamal Uddin', signedDate: 'Feb 28' },
-          { id: 'gb3', title: 'Pathogenesis, Exotoxin/Endotoxin, Koch\'s Postulates, Molecular Koch\'s', completed: true, signedBy: 'Dr. Farzana Noor', signedDate: 'Mar 10' },
-          { id: 'gb4', title: 'Sterilization, Disinfection, Antisepsis — Principles & Uses', completed: true, signedBy: 'Dr. Farzana Noor', signedDate: 'Mar 20' },
-          { id: 'gb5', title: 'Practical: Gram Staining, ZN Staining, Culture Media Types', completed: true, signedBy: 'Prof. Kamal Uddin', signedDate: 'Mar 28' },
+          { id: 'gb1', title: 'Prokaryote & Eukaryote, Cell Wall Structure, Capsule, Flagella, Spore, Classification', completed: true, signedBy: microBacteriology.name, signedDate: 'Feb 15' },
+          { id: 'gb2', title: 'Growth & Death of Bacteria, Growth Curve, Generation Time, O₂ Classification', completed: true, signedBy: microBacteriology.name, signedDate: 'Feb 28' },
+          { id: 'gb3', title: 'Pathogenesis, Exotoxin/Endotoxin, Koch\'s Postulates, Molecular Koch\'s', completed: true, signedBy: microHead.name, signedDate: 'Mar 10' },
+          { id: 'gb4', title: 'Sterilization, Disinfection, Antisepsis — Principles & Uses', completed: true, signedBy: microBacteriology.name, signedDate: 'Mar 20' },
+          { id: 'gb5', title: 'Practical: Gram Staining, ZN Staining, Culture Media Types', completed: true, signedBy: microBacteriology.name, signedDate: 'Mar 28' },
           { id: 'gb6', title: 'Antimicrobials: Mechanism, Resistance, Selective Toxicity, MDR/XDR/PDR', completed: false },
           { id: 'gb7', title: 'Bacterial Genetics: Plasmid, Transposons, Mutation, Gene Transfer', completed: false },
         ],
@@ -63,8 +62,8 @@ const itemCards: ItemCard[] = [
       {
         name: 'Systemic Bacteriology',
         topics: [
-          { id: 'sb1', title: 'Staphylococci & Streptococci — Classification, Diseases, Lab Diagnosis', completed: true, signedBy: 'Prof. Kamal Uddin', signedDate: 'Apr 5' },
-          { id: 'sb2', title: 'Neisseria, Corynebacterium, Bacillus — Diphtheria, Anthrax', completed: true, signedBy: 'Dr. Rehana Sultana', signedDate: 'Apr 10' },
+          { id: 'sb1', title: 'Staphylococci & Streptococci — Classification, Diseases, Lab Diagnosis', completed: true, signedBy: microBacteriology.name, signedDate: 'Apr 5' },
+          { id: 'sb2', title: 'Neisseria, Corynebacterium, Bacillus — Diphtheria, Anthrax', completed: true, signedBy: microHead.name, signedDate: 'Apr 10' },
           { id: 'sb3', title: 'Mycobacterium — TB Pathogenesis, Diagnosis (Gene Xpert), Leprosy', completed: false },
           { id: 'sb4', title: 'Enterobacteriaceae — Salmonella, Shigella, E. coli', completed: false },
           { id: 'sb5', title: 'Vibrio, Campylobacter, Helicobacter', completed: false },
@@ -75,8 +74,8 @@ const itemCards: ItemCard[] = [
       {
         name: 'Immunology',
         topics: [
-          { id: 'im1', title: 'Innate & Adaptive Immunity, Antigens, Immunoglobulins', completed: true, signedBy: 'Dr. Farzana Noor', signedDate: 'Mar 15' },
-          { id: 'im2', title: 'Complement System, MHC, Cytokines', completed: true, signedBy: 'Dr. Farzana Noor', signedDate: 'Apr 1' },
+          { id: 'im1', title: 'Innate & Adaptive Immunity, Antigens, Immunoglobulins', completed: true, signedBy: microImmunology.name, signedDate: 'Mar 15' },
+          { id: 'im2', title: 'Complement System, MHC, Cytokines', completed: true, signedBy: microImmunology.name, signedDate: 'Apr 1' },
           { id: 'im3', title: 'Hypersensitivity (Types I-IV), Autoimmunity, Transplant Immunology', completed: false },
           { id: 'im4', title: 'Vaccines, Immunodiagnostic Tests (ELISA, Western Blot, PCR)', completed: false },
         ],
@@ -94,9 +93,9 @@ const itemCards: ItemCard[] = [
       {
         name: 'Parasitology',
         topics: [
-          { id: 'pr1', title: 'Introduction, Classification, Host-Parasite Relationships', completed: true, signedBy: 'Prof. Kamal Uddin', signedDate: 'Jan 20' },
-          { id: 'pr2', title: 'Entamoeba, Giardia, Trichomonas — Morphology, Pathogenesis, Diagnosis', completed: true, signedBy: 'Prof. Kamal Uddin', signedDate: 'Feb 5' },
-          { id: 'pr3', title: 'Plasmodium — Lifecycle, Malaria Features, Lab Diagnosis, Treatment', completed: true, signedBy: 'Dr. Rehana Sultana', signedDate: 'Feb 20' },
+          { id: 'pr1', title: 'Introduction, Classification, Host-Parasite Relationships', completed: true, signedBy: microHead.name, signedDate: 'Jan 20' },
+          { id: 'pr2', title: 'Entamoeba, Giardia, Trichomonas — Morphology, Pathogenesis, Diagnosis', completed: true, signedBy: microHead.name, signedDate: 'Feb 5' },
+          { id: 'pr3', title: 'Plasmodium — Lifecycle, Malaria Features, Lab Diagnosis, Treatment', completed: true, signedBy: microHead.name, signedDate: 'Feb 20' },
           { id: 'pr4', title: 'Cestodes & Trematodes — Taenia, Echinococcus, Schistosoma', completed: false },
           { id: 'pr5', title: 'Nematodes — Ascaris, Hookworm, Strongyloides, Filariasis', completed: false },
         ],
@@ -104,8 +103,8 @@ const itemCards: ItemCard[] = [
       {
         name: 'Virology',
         topics: [
-          { id: 'vr1', title: 'General Virology — Structure, Replication, Classification, Antiviral Agents', completed: true, signedBy: 'Dr. Nazmul Haque', signedDate: 'Feb 10' },
-          { id: 'vr2', title: 'Herpes Viruses — Latency, Reactivation, Diseases', completed: true, signedBy: 'Dr. Nazmul Haque', signedDate: 'Feb 25' },
+          { id: 'vr1', title: 'General Virology — Structure, Replication, Classification, Antiviral Agents', completed: true, signedBy: microVirology.name, signedDate: 'Feb 10' },
+          { id: 'vr2', title: 'Herpes Viruses — Latency, Reactivation, Diseases', completed: true, signedBy: microVirology.name, signedDate: 'Feb 25' },
           { id: 'vr3', title: 'Hepatitis Viruses — Classification, Pathogenesis, Lab Diagnosis', completed: false },
           { id: 'vr4', title: 'HIV/AIDS, Dengue (DHF/DSS), COVID-19 & Emerging Viruses', completed: false },
         ],
@@ -154,8 +153,12 @@ export default function ItemCardTrackerPage() {
           </div>
           <div>
             <h1 className="text-xl font-black text-gray-900 tracking-tight">Item Card Tracker</h1>
-            <p className="text-xs font-medium text-gray-400">Microbiology — Phase III Competency Progress</p>
+            <p className="text-xs font-medium text-gray-400">{micro.shortName} ({micro.code}) — {micro.phase} · {micro.professionalExam}</p>
           </div>
+        </div>
+        <div className="flex flex-col items-start sm:items-end">
+          <span className="text-sm font-black text-amber-600">{micro.statusNote.replace('item cards', 'items')} (~{micro.progress}%)</span>
+          <span className="text-[11px] font-medium text-gray-400">{micro.phaseLabel} — {micro.statusLabel}</span>
         </div>
       </div>
 

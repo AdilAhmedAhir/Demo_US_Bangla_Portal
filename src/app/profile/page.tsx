@@ -21,19 +21,20 @@ import {
   Clock,
   Droplet,
 } from 'lucide-react';
+import { student } from '@/data/academics';
 
 const studentData = {
-  name: 'Adil Ahmed',
-  id: 'USB-2604',
-  batch: 'Batch 16 (2024-2029)',
-  phase: 'Phase I — Pre-Clinical',
+  name: student.name,
+  id: student.studentId,
+  batch: student.batch,
+  phase: `${student.phase} — ${student.phaseLabel}`,
   department: 'MBBS',
-  session: '2024-2025',
-  enrollDate: 'January 15, 2024',
-  status: 'Active',
-  email: 'adil.ahmed@usbangla.edu.bd',
+  session: student.session,
+  enrollDate: student.enrollmentDate,
+  status: student.enrollmentStatus,
+  email: 'adil.student@usbmc.edu.bd',
   phone: '+880 1712-345678',
-  dob: 'March 22, 2005',
+  dob: 'March 22, 2003',
   bloodGroup: 'B+',
   nationality: 'Bangladeshi',
   nidNo: '1234 5678 9012',
@@ -52,10 +53,10 @@ const studentData = {
 };
 
 const academicSnapshot = [
-  { label: 'Current CGPA',    value: '3.72', sub: 'out of 4.00' },
-  { label: 'Credits Earned',  value: '42',   sub: 'of 240 total' },
-  { label: 'Attendance',      value: '87%',  sub: 'above threshold' },
-  { label: 'Pending Dues',    value: '৳0',   sub: 'fully cleared' },
+  { label: 'Current CGPA',       value: student.gpa.toFixed(2),         sub: 'out of 5.00' },
+  { label: 'Professional Exams', value: student.professionalExamsPassed, sub: 'passed' },
+  { label: 'Attendance',         value: `${student.attendance}%`,        sub: 'above threshold' },
+  { label: 'Pending Dues',       value: '৳0',                            sub: 'fully cleared' },
 ];
 
 export default function StudentProfilePage() {
@@ -81,7 +82,7 @@ export default function StudentProfilePage() {
           <div className="flex flex-col sm:flex-row sm:items-end gap-5">
             {/* Avatar */}
             <div className="w-28 h-28 rounded-2xl border-4 border-white shadow-lg bg-gradient-to-br from-brand-primary-blue to-blue-700 flex items-center justify-center text-white text-3xl font-black">
-              AA
+              AS
             </div>
 
             {/* Name & Meta */}
