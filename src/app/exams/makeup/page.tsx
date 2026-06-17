@@ -96,7 +96,7 @@ export default function MakeupExamPage() {
           <p className="text-sm font-bold text-gray-900">Makeup Exam Policy</p>
           <p className="text-xs text-gray-600 mt-1">
             Students who fail any component (Item Card / Term / SOE / OSPE) must clear the makeup assessment.
-            Pass marks: <strong>60% of total marks</strong> per component on the BMDC 5.00 scale. Requests are reviewed by the Exam Controller
+            Pass marks: <strong>60% of total marks</strong> per component on the BM&DC 4.00 scale. Requests are reviewed by the Exam Controller
             and require HOD approval. Processing time: 3–5 working days.
           </p>
         </div>

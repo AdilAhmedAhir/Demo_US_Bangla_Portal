@@ -17,19 +17,19 @@ interface AcademicTranscriptProps {
 
 /** US Bangla Medical College GPA Scale */
 function percentToGrade(pct: number): { letter: string; gpa: string; tier: 'excellent' | 'good' | 'pass' | 'fail' } {
-  if (pct >= 80) return { letter: 'A+', gpa: '5.00', tier: 'excellent' };
-  if (pct >= 75) return { letter: 'A',  gpa: '4.50', tier: 'excellent' };
-  if (pct >= 70) return { letter: 'A-', gpa: '4.00', tier: 'good' };
-  if (pct >= 65) return { letter: 'B+', gpa: '3.50', tier: 'good' };
+  if (pct >= 80) return { letter: 'A+', gpa: '4.00', tier: 'excellent' };
+  if (pct >= 75) return { letter: 'A',  gpa: '3.75', tier: 'excellent' };
+  if (pct >= 70) return { letter: 'A-', gpa: '3.50', tier: 'good' };
+  if (pct >= 65) return { letter: 'B+', gpa: '3.25', tier: 'good' };
   if (pct >= 60) return { letter: 'B',  gpa: '3.00', tier: 'pass' };
   return               { letter: 'F',  gpa: '0.00', tier: 'fail' };
 }
 
 function cgpaToLetter(cgpa: number): { letter: string; tier: 'excellent' | 'good' | 'pass' | 'fail' } {
-  if (cgpa >= 5.0)  return { letter: 'A+', tier: 'excellent' };
-  if (cgpa >= 4.50) return { letter: 'A',  tier: 'excellent' };
-  if (cgpa >= 4.00) return { letter: 'A-', tier: 'good' };
-  if (cgpa >= 3.50) return { letter: 'B+', tier: 'good' };
+  if (cgpa >= 4.0)  return { letter: 'A+', tier: 'excellent' };
+  if (cgpa >= 3.75) return { letter: 'A',  tier: 'excellent' };
+  if (cgpa >= 3.50) return { letter: 'A-', tier: 'good' };
+  if (cgpa >= 3.25) return { letter: 'B+', tier: 'good' };
   if (cgpa >= 3.00) return { letter: 'B',  tier: 'pass' };
   return                    { letter: 'F',  tier: 'fail' };
 }
@@ -77,7 +77,7 @@ export default function AcademicTranscript({
                 {cgpa.toFixed(2)}
               </span>
               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1.5">
-                Cumulative GPA · /5.00
+                Cumulative GPA · /4.00
               </span>
             </div>
 
@@ -102,10 +102,10 @@ export default function AcademicTranscript({
       <div className="px-6 pb-4">
         <div className="flex flex-wrap gap-2">
           {[
-            { label: 'A+ (5.00)', range: '≥80%', color: 'bg-emerald-100 text-emerald-700 border-emerald-200' },
-            { label: 'A (4.50)',  range: '75-79%', color: 'bg-emerald-50 text-emerald-600 border-emerald-200' },
-            { label: 'A- (4.00)', range: '70-74%', color: 'bg-blue-50 text-blue-600 border-blue-200' },
-            { label: 'B+ (3.50)', range: '65-69%', color: 'bg-blue-50 text-blue-500 border-blue-100' },
+            { label: 'A+ (4.00)', range: '≥80%', color: 'bg-emerald-100 text-emerald-700 border-emerald-200' },
+            { label: 'A (3.75)',  range: '75-79%', color: 'bg-emerald-50 text-emerald-600 border-emerald-200' },
+            { label: 'A- (3.50)', range: '70-74%', color: 'bg-blue-50 text-blue-600 border-blue-200' },
+            { label: 'B+ (3.25)', range: '65-69%', color: 'bg-blue-50 text-blue-500 border-blue-100' },
             { label: 'B (3.00)',  range: '60-64%', color: 'bg-gray-100 text-gray-600 border-gray-200' },
             { label: 'F (0.00)',  range: '<60%',   color: 'bg-red-50 text-red-600 border-red-200' },
           ].map((g) => (

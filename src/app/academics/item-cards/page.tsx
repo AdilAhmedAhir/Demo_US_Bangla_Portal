@@ -42,7 +42,7 @@ const itemCards: ItemCard[] = [
   {
     id: 'card1',
     title: 'Item Card 1',
-    subtitle: 'General Bacteriology, Systemic Bacteriology, Immunology',
+    subtitle: 'General Bacteriology, Parasitology, Immunology',
     icon: Microscope,
     color: 'text-brand-primary-blue',
     bg: 'bg-blue-50',
@@ -60,15 +60,13 @@ const itemCards: ItemCard[] = [
         ],
       },
       {
-        name: 'Systemic Bacteriology',
+        name: 'Parasitology',
         topics: [
-          { id: 'sb1', title: 'Staphylococci & Streptococci — Classification, Diseases, Lab Diagnosis', completed: true, signedBy: microBacteriology.name, signedDate: 'Apr 5' },
-          { id: 'sb2', title: 'Neisseria, Corynebacterium, Bacillus — Diphtheria, Anthrax', completed: true, signedBy: microHead.name, signedDate: 'Apr 10' },
-          { id: 'sb3', title: 'Mycobacterium — TB Pathogenesis, Diagnosis (Gene Xpert), Leprosy', completed: false },
-          { id: 'sb4', title: 'Enterobacteriaceae — Salmonella, Shigella, E. coli', completed: false },
-          { id: 'sb5', title: 'Vibrio, Campylobacter, Helicobacter', completed: false },
-          { id: 'sb6', title: 'Spirochetes — Syphilis Stages, Leptospira, Borrelia', completed: false },
-          { id: 'sb7', title: 'Anaerobes — Clostridium, Bacteroides; Chlamydia, Rickettsia, Mycoplasma', completed: false },
+          { id: 'pr1', title: 'Introduction, Classification, Host-Parasite Relationships', completed: true, signedBy: microHead.name, signedDate: 'Jan 20' },
+          { id: 'pr2', title: 'Entamoeba, Giardia, Trichomonas — Morphology, Pathogenesis, Diagnosis', completed: true, signedBy: microHead.name, signedDate: 'Feb 5' },
+          { id: 'pr3', title: 'Plasmodium — Lifecycle, Malaria Features, Lab Diagnosis, Treatment', completed: true, signedBy: microHead.name, signedDate: 'Feb 20' },
+          { id: 'pr4', title: 'Cestodes & Trematodes — Taenia, Echinococcus, Schistosoma', completed: false },
+          { id: 'pr5', title: 'Nematodes — Ascaris, Hookworm, Strongyloides, Filariasis', completed: false },
         ],
       },
       {
@@ -85,19 +83,21 @@ const itemCards: ItemCard[] = [
   {
     id: 'card2',
     title: 'Item Card 2',
-    subtitle: 'Parasitology, Virology, Mycology & Clinical Microbiology',
+    subtitle: 'Systemic Bacteriology, Virology, Mycology & Clinical Microbiology',
     icon: Bug,
     color: 'text-emerald-600',
     bg: 'bg-emerald-50',
     sections: [
       {
-        name: 'Parasitology',
+        name: 'Systemic Bacteriology',
         topics: [
-          { id: 'pr1', title: 'Introduction, Classification, Host-Parasite Relationships', completed: true, signedBy: microHead.name, signedDate: 'Jan 20' },
-          { id: 'pr2', title: 'Entamoeba, Giardia, Trichomonas — Morphology, Pathogenesis, Diagnosis', completed: true, signedBy: microHead.name, signedDate: 'Feb 5' },
-          { id: 'pr3', title: 'Plasmodium — Lifecycle, Malaria Features, Lab Diagnosis, Treatment', completed: true, signedBy: microHead.name, signedDate: 'Feb 20' },
-          { id: 'pr4', title: 'Cestodes & Trematodes — Taenia, Echinococcus, Schistosoma', completed: false },
-          { id: 'pr5', title: 'Nematodes — Ascaris, Hookworm, Strongyloides, Filariasis', completed: false },
+          { id: 'sb1', title: 'Staphylococci & Streptococci — Classification, Diseases, Lab Diagnosis', completed: true, signedBy: microBacteriology.name, signedDate: 'Apr 5' },
+          { id: 'sb2', title: 'Neisseria, Corynebacterium, Bacillus — Diphtheria, Anthrax', completed: true, signedBy: microHead.name, signedDate: 'Apr 10' },
+          { id: 'sb3', title: 'Mycobacterium — TB Pathogenesis, Diagnosis (Gene Xpert), Leprosy', completed: false },
+          { id: 'sb4', title: 'Enterobacteriaceae — Salmonella, Shigella, E. coli', completed: false },
+          { id: 'sb5', title: 'Vibrio, Campylobacter, Helicobacter', completed: false },
+          { id: 'sb6', title: 'Spirochetes — Syphilis Stages, Leptospira, Borrelia', completed: false },
+          { id: 'sb7', title: 'Anaerobes — Clostridium, Bacteroides; Chlamydia, Rickettsia, Mycoplasma', completed: false },
         ],
       },
       {

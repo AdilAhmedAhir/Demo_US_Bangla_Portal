@@ -57,7 +57,7 @@ export interface StudentProfile {
   enrollmentDate: string;
   enrollmentStatus: string; // "Regular"
   attendance: number;
-  gpa: number;           // cumulative, BMDC 5.00 scale
+  gpa: number;           // cumulative, BMDC 4.00 scale
   professionalExamsPassed: string; // e.g. "2 of 4"
   currentBalance: number;
 }
@@ -74,7 +74,7 @@ export const student: StudentProfile = {
   enrollmentDate: '10 January 2022',
   enrollmentStatus: 'Regular',
   attendance: 85,
-  gpa: 4.33,
+  gpa: 3.67,
   professionalExamsPassed: '2 of 4',
   currentBalance: 45000,
 };
@@ -208,12 +208,12 @@ export function phaseCompletion(): number {
   return Math.round(total / currentCourses.length);
 }
 
-/* ── BMDC GPA scale (out of 5.00). Do NOT round the percentage before grading. ── */
+/* ── Official BM&DC GPA scale (out of 4.00). Do NOT round the percentage before grading. ── */
 export function percentToGpa(pct: number): { letter: string; gpa: number } {
-  if (pct >= 80) return { letter: 'A+', gpa: 5.0 };
-  if (pct >= 75) return { letter: 'A', gpa: 4.5 };
-  if (pct >= 70) return { letter: 'A-', gpa: 4.0 };
-  if (pct >= 65) return { letter: 'B+', gpa: 3.5 };
+  if (pct >= 80) return { letter: 'A+', gpa: 4.0 };
+  if (pct >= 75) return { letter: 'A', gpa: 3.75 };
+  if (pct >= 70) return { letter: 'A-', gpa: 3.5 };
+  if (pct >= 65) return { letter: 'B+', gpa: 3.25 };
   if (pct >= 60) return { letter: 'B', gpa: 3.0 };
   return { letter: 'F', gpa: 0.0 };
 }

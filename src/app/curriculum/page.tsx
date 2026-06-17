@@ -23,10 +23,10 @@ import {
 
 /* ── GPA Scale ─── */
 const gpaScale = [
-  { range: '80% and above', letter: 'A+', gp: '5.00', color: 'bg-emerald-500', text: 'text-emerald-700', bg: 'bg-emerald-50' },
-  { range: '75% to < 80%',  letter: 'A',  gp: '4.50', color: 'bg-blue-500',    text: 'text-blue-700',    bg: 'bg-blue-50' },
-  { range: '70% to < 75%',  letter: 'A-', gp: '4.00', color: 'bg-sky-500',     text: 'text-sky-700',     bg: 'bg-sky-50' },
-  { range: '65% to < 70%',  letter: 'B+', gp: '3.50', color: 'bg-amber-500',   text: 'text-amber-700',   bg: 'bg-amber-50' },
+  { range: '80% and above', letter: 'A+', gp: '4.00', color: 'bg-emerald-500', text: 'text-emerald-700', bg: 'bg-emerald-50' },
+  { range: '75% to < 80%',  letter: 'A',  gp: '3.75', color: 'bg-blue-500',    text: 'text-blue-700',    bg: 'bg-blue-50' },
+  { range: '70% to < 75%',  letter: 'A-', gp: '3.50', color: 'bg-sky-500',     text: 'text-sky-700',     bg: 'bg-sky-50' },
+  { range: '65% to < 70%',  letter: 'B+', gp: '3.25', color: 'bg-amber-500',   text: 'text-amber-700',   bg: 'bg-amber-50' },
   { range: '60% to < 65%',  letter: 'B',  gp: '3.00', color: 'bg-orange-500',  text: 'text-orange-700',  bg: 'bg-orange-50' },
   { range: 'Below 60%',     letter: 'F',  gp: '0.00', color: 'bg-[#ed1c24]',   text: 'text-[#ed1c24]',   bg: 'bg-red-50' },
 ];
@@ -42,8 +42,8 @@ const subjects = [
 const writtenBreakdown = [
   { label: 'MCQ (MT/F)', marks: 10, desc: 'Multiple True/False — 10 questions' },
   { label: 'MCQ (SBA)',  marks: 10, desc: 'Single Best Answer — 10 questions' },
-  { label: 'SAQ',        marks: 42, desc: '4 groups × 3 questions × 3.5 marks' },
-  { label: 'SEQ',        marks: 28, desc: '4 groups × 1 mandatory question × 7 marks' },
+  { label: 'SAQ',        marks: 52, desc: 'Short Answer Questions — ~75% of the 70-mark block' },
+  { label: 'SEQ',        marks: 18, desc: 'Structured Essay Questions — ~25% of the 70-mark block' },
 ];
 
 const practicalBreakdown = [

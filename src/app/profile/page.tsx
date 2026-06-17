@@ -53,7 +53,7 @@ const studentData = {
 };
 
 const academicSnapshot = [
-  { label: 'Current CGPA',       value: student.gpa.toFixed(2),         sub: 'out of 5.00' },
+  { label: 'Current CGPA',       value: student.gpa.toFixed(2),         sub: 'out of 4.00' },
   { label: 'Professional Exams', value: student.professionalExamsPassed, sub: 'passed' },
   { label: 'Attendance',         value: `${student.attendance}%`,        sub: 'above threshold' },
   { label: 'Pending Dues',       value: '৳0',                            sub: 'fully cleared' },

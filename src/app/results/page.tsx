@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { percentToGpa } from '@/data/academics';
 
-/* ── GPA lookup (letter + gpa from the shared BMDC 5.00 scale, no rounding) ─── */
+/* ── GPA lookup (letter + gpa from the shared BM&DC 4.00 scale, no rounding) ─── */
 const gradeStyle: Record<string, { color: string; bg: string; border: string }> = {
   'A+': { color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
   'A':  { color: 'text-blue-700',    bg: 'bg-blue-50',    border: 'border-blue-200' },
@@ -32,10 +32,10 @@ const getGrade = (percent: number) => {
 
 /* Letter band for a cumulative GPA (average of subject grade points). */
 const gpaToLetter = (gpa: number): string => {
-  if (gpa >= 5.0) return 'A+';
-  if (gpa >= 4.5) return 'A';
-  if (gpa >= 4.0) return 'A-';
-  if (gpa >= 3.5) return 'B+';
+  if (gpa >= 4.0) return 'A+';
+  if (gpa >= 3.75) return 'A';
+  if (gpa >= 3.5) return 'A-';
+  if (gpa >= 3.25) return 'B+';
   if (gpa >= 3.0) return 'B';
   return 'F';
 };

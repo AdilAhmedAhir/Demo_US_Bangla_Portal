@@ -21,14 +21,14 @@ const CARD_DATA: CardData[] = [
     label: 'Card 1',
     subjects: [
       { name: 'General Bacteriology', status: 'Cleared', examDate: 'Mar 22, 2026' },
-      { name: 'Systemic Bacteriology', status: 'Failed', examDate: 'Apr 05, 2026' },
+      { name: 'Parasitology', status: 'Failed', examDate: 'Apr 05, 2026' },
       { name: 'Immunology', status: 'Pending' },
     ],
   },
   {
     label: 'Card 2',
     subjects: [
-      { name: 'Parasitology', status: 'Cleared', examDate: 'Mar 18, 2026' },
+      { name: 'Systemic Bacteriology', status: 'Cleared', examDate: 'Mar 18, 2026' },
       { name: 'Virology', status: 'Pending' },
       { name: 'Mycology', status: 'Cleared', examDate: 'Mar 25, 2026' },
       { name: 'Clinical Microbiology', status: 'Failed', examDate: 'Apr 08, 2026' },
