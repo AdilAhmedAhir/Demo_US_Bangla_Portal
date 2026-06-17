@@ -55,16 +55,17 @@ const practicalBreakdown = [
 
 /* ── Teaching Hours ─── */
 const teachingHours = [
-  { label: 'Lectures',  hours: 100, percent: 52.6, color: 'bg-brand-primary-blue' },
-  { label: 'Tutorials', hours: 45,  percent: 23.7, color: 'bg-emerald-500' },
-  { label: 'Practicals', hours: 45, percent: 23.7, color: 'bg-amber-500' },
+  { subject: 'Community Medicine & Public Health', lecture: 110, tutorial: 155, practical: 'COME', total: '265h + 30d' },
+  { subject: 'Pathology', lecture: 60, tutorial: 54, practical: '27', total: '141' },
+  { subject: 'Microbiology', lecture: 87, tutorial: 38, practical: '30', total: '155' },
 ];
 
-/* ── Cognitive Domain ─── */
+/* ── Written Paper — Question Types (official BM&DC weighting) ─── */
 const cognitiveBreakdown = [
-  { label: 'Recall',        percent: 50, color: 'bg-brand-primary-blue', icon: Brain },
-  { label: 'Understanding',  percent: 35, color: 'bg-emerald-500',       icon: Target },
-  { label: 'Application',    percent: 15, color: 'bg-amber-500',          icon: Beaker },
+  { label: 'MCQ (MTF 50% + SBA 50%)', percent: 20, color: 'bg-brand-primary-blue', icon: Target },
+  { label: 'SAQ — Short Answer',       percent: 52, color: 'bg-emerald-500',        icon: FileText },
+  { label: 'SEQ — Structured Essay',   percent: 18, color: 'bg-amber-500',          icon: BookOpenCheck },
+  { label: 'Formative Assessment',     percent: 10, color: 'bg-violet-500',         icon: BarChart3 },
 ];
 
 /* ── Eligibility Requirements ─── */
@@ -246,24 +247,36 @@ export default function CurriculumGuidePage() {
           <div className="px-6 py-5 border-b border-gray-100">
             <h2 className="text-base font-bold text-gray-900 flex items-center gap-2">
               <Clock className="w-5 h-5 text-violet-600" />
-              Teaching Hours — 190 Total
+              Phase III Teaching Hours
             </h2>
+            <p className="text-xs text-gray-500 font-medium mt-0.5">Lecture / Tutorial / Practical hours per subject</p>
           </div>
-          <div className="p-6 space-y-4">
-            {teachingHours.map((item) => (
-              <div key={item.label}>
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-sm font-bold text-gray-700">{item.label}</span>
-                  <span className="text-sm font-black text-gray-900">{item.hours}h <span className="text-xs text-gray-400">({item.percent}%)</span></span>
-                </div>
-                <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
-                  <div className={`h-full rounded-full ${item.color}`} style={{ width: `${item.percent}%` }} />
-                </div>
-              </div>
-            ))}
-            <div className="p-3 bg-gray-50 rounded-lg text-center mt-2">
-              <span className="text-xs font-bold text-gray-500">+ 15 hours Integrated Teaching (common for all Phase III subjects)</span>
-            </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="bg-gray-50/70 border-b border-gray-100">
+                  <th className="px-5 py-2.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Subject</th>
+                  <th className="px-2 py-2.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider text-center">Lec</th>
+                  <th className="px-2 py-2.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider text-center">Tut</th>
+                  <th className="px-2 py-2.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider text-center">Prac</th>
+                  <th className="px-3 py-2.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider text-center">Total</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-50">
+                {teachingHours.map((s) => (
+                  <tr key={s.subject} className="hover:bg-slate-50">
+                    <td className="px-5 py-3 text-xs font-bold text-gray-900">{s.subject}</td>
+                    <td className="px-2 py-3 text-center text-sm font-bold text-brand-primary-blue">{s.lecture}</td>
+                    <td className="px-2 py-3 text-center text-sm font-bold text-emerald-600">{s.tutorial}</td>
+                    <td className="px-2 py-3 text-center text-sm font-bold text-amber-600">{s.practical}</td>
+                    <td className="px-3 py-3 text-center text-sm font-black text-gray-900">{s.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="px-6 py-3 bg-gray-50 text-center border-t border-gray-100">
+            <span className="text-[11px] font-bold text-gray-500">+ 18 hrs Integrated Teaching · COME = 30-day Community-Based Medical Education</span>
           </div>
         </div>
 
@@ -272,9 +285,9 @@ export default function CurriculumGuidePage() {
           <div className="px-6 py-5 border-b border-gray-100">
             <h2 className="text-base font-bold text-gray-900 flex items-center gap-2">
               <Brain className="w-5 h-5 text-rose-500" />
-              Question Cognitive Domain
+              Written Paper — Question Types
             </h2>
-            <p className="text-xs text-gray-500 font-medium mt-0.5">Distribution across all question types</p>
+            <p className="text-xs text-gray-500 font-medium mt-0.5">Composition of the 100-mark written paper (MCQ 20% · SAQ/SEQ 70% · Formative 10%)</p>
           </div>
           <div className="p-6 space-y-4">
             {cognitiveBreakdown.map((item) => {
@@ -282,7 +295,7 @@ export default function CurriculumGuidePage() {
               return (
                 <div key={item.label} className="flex items-center gap-4">
                   <div className={`w-11 h-11 rounded-xl ${item.color}/10 flex items-center justify-center`}>
-                    <Icon className={`w-5 h-5 ${item.color === 'bg-brand-primary-blue' ? 'text-brand-primary-blue' : item.color === 'bg-emerald-500' ? 'text-emerald-600' : 'text-amber-600'}`} />
+                    <Icon className={`w-5 h-5 ${item.color === 'bg-brand-primary-blue' ? 'text-brand-primary-blue' : item.color === 'bg-emerald-500' ? 'text-emerald-600' : item.color === 'bg-violet-500' ? 'text-violet-600' : 'text-amber-600'}`} />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
