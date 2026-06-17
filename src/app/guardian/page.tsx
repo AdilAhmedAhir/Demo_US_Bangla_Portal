@@ -1,5 +1,6 @@
 import React from 'react';
-import { UserCheck, Shield, GraduationCap, AlertCircle, PieChart } from 'lucide-react';
+import { UserCheck, Shield, GraduationCap, AlertCircle } from 'lucide-react';
+import { student, currentCourses } from '@/data/academics';
 
 export default function GuardianPortal() {
   return (
@@ -10,7 +11,8 @@ export default function GuardianPortal() {
            <span className="text-amber-600 font-bold text-sm tracking-wide uppercase">Parent / Guardian Portal</span>
         </div>
         <h1 className="text-3xl font-black tracking-tight text-gray-900">Guardian Dashboard</h1>
-        <p className="mt-1 text-gray-600">Welcome Mr. Ahmed. You are viewing data for: <strong className="text-gray-900">Adil Ahmed (USB-2601)</strong>.</p>
+        <p className="mt-1 text-gray-600">Welcome Mr. Ahmed. You are viewing data for: <strong className="text-gray-900">{student.name} ({student.studentId})</strong>.</p>
+        <p className="mt-1 text-sm text-gray-500">{student.year} · {student.phase} ({student.phaseLabel}) · Session {student.session}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -28,7 +30,7 @@ export default function GuardianPortal() {
                   <circle cx="64" cy="64" r="56" stroke="currentColor" strokeWidth="12" fill="transparent" strokeDasharray="351.85" strokeDashoffset="52.77" className="text-brand-primary-green" strokeLinecap="round" />
                 </svg>
                 <div className="absolute flex flex-col items-center justify-center text-center">
-                   <span className="text-3xl font-black text-gray-900">85%</span>
+                   <span className="text-3xl font-black text-gray-900">{student.attendance}%</span>
                 </div>
              </div>
              <p className="text-sm font-bold text-gray-500 mt-4">Present: 45 / Total: 53</p>
@@ -44,8 +46,9 @@ export default function GuardianPortal() {
            </div>
            <div className="flex-1 flex flex-col justify-center">
              <div className="p-4 bg-blue-50 rounded-xl border border-blue-100 mb-4">
-               <p className="text-xs font-bold text-blue-600 mb-1 uppercase">Term 3 Final Exam</p>
-               <h2 className="text-4xl font-black text-gray-900">GPA 3.82<span className="text-lg text-gray-500 font-medium">/4.0</span></h2>
+               <p className="text-xs font-bold text-blue-600 mb-1 uppercase">Cumulative GPA · {student.professionalExam}</p>
+               <h2 className="text-4xl font-black text-gray-900">GPA {student.gpa.toFixed(2)}<span className="text-lg text-gray-500 font-medium">/4.00</span></h2>
+               <p className="text-xs text-gray-500 mt-2">{currentCourses.map((c) => c.shortName).join(' · ')}</p>
              </div>
              <button className="w-full py-2 bg-gray-900 text-white font-bold rounded-lg text-sm hover:bg-gray-800 transition-colors">Download Report Card</button>
            </div>

@@ -57,10 +57,10 @@ interface StudentFormative {
 }
 
 const mockStudents: StudentFormative[] = [
-  { id: 'USB-2604', name: 'Adil Ahmed',       roll: 1,  term1Percent: 78, term2Percent: 82, generalAttendance: 92, integratedAttendance: 95, genericCompleted: true },
+  { id: 'USB-2604', name: 'Adil Student',      roll: 1,  term1Percent: 78, term2Percent: 82, generalAttendance: 92, integratedAttendance: 95, genericCompleted: true },
   { id: 'USB-2605', name: 'Fatima Rahman',     roll: 2,  term1Percent: 85, term2Percent: 88, generalAttendance: 96, integratedAttendance: 90, genericCompleted: true },
   { id: 'USB-2606', name: 'Hasan Mahmud',      roll: 3,  term1Percent: 62, term2Percent: 68, generalAttendance: 78, integratedAttendance: 80, genericCompleted: true },
-  { id: 'USB-2607', name: 'Nusrat Jahan',      roll: 4,  term1Percent: 90, term2Percent: 92, generalAttendance: 98, integratedAttendance: 100, genericCompleted: true },
+  { id: 'USB-2607', name: 'Sumaiya Haque',     roll: 4,  term1Percent: 90, term2Percent: 92, generalAttendance: 98, integratedAttendance: 100, genericCompleted: true },
   { id: 'USB-2608', name: 'Rafi Islam',        roll: 5,  term1Percent: 55, term2Percent: 58, generalAttendance: 72, integratedAttendance: 70, genericCompleted: false },
   { id: 'USB-2609', name: 'Sadia Akter',       roll: 6,  term1Percent: 74, term2Percent: 76, generalAttendance: 85, integratedAttendance: 88, genericCompleted: true },
   { id: 'USB-2610', name: 'Tanvir Hossain',    roll: 7,  term1Percent: 70, term2Percent: 72, generalAttendance: 90, integratedAttendance: 92, genericCompleted: true },
@@ -111,7 +111,7 @@ export default function FormativeCalculatorPage() {
           </div>
           <div>
             <h1 className="text-xl font-black text-gray-900 tracking-tight">Formative Assessment Calculator</h1>
-            <p className="text-xs font-medium text-gray-400">Auto-calculate formative marks using BMDC rules — Microbiology</p>
+            <p className="text-xs font-medium text-gray-400">Microbiology (MICRO-303) · Phase III — Third Professional MBBS · Prof. Dr. Nasreen Begum</p>
           </div>
         </div>
         <button className="px-4 py-2.5 text-xs font-bold rounded-lg bg-brand-primary-blue text-white hover:bg-brand-primary-blue/90 transition-all flex items-center gap-2 shadow-sm">

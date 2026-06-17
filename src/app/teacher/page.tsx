@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 export default function TeacherPage() {
   const classes = [
-    { id: 'MBB-401', name: 'General Anatomy (Group A)', time: '08:00 AM Today', students: 85, room: 'Gallery 1' },
-    { id: 'MBB-401', name: 'General Anatomy (Group B)', time: '11:00 AM Today', students: 80, room: 'Gallery 2' },
+    { id: 'MICRO-303', name: 'Microbiology Lecture (Phase III)', time: '08:00 AM Today', students: 85, room: 'Gallery 1' },
+    { id: 'MICRO-303', name: 'Microbiology Practical (Phase III)', time: '11:00 AM Today', students: 80, room: 'Gallery 2' },
   ];
 
   return (
@@ -13,7 +13,7 @@ export default function TeacherPage() {
       <div className="mb-2 p-6 bg-gradient-to-r from-teal-600 to-emerald-800 rounded-2xl shadow-md text-white flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Teacher Portal</h1>
-          <p className="mt-1 text-teal-100 font-medium">Welcome back, Dr. Shahin Rahman. You have 2 lectures today.</p>
+          <p className="mt-1 text-teal-100 font-medium">Welcome back, Prof. Dr. Nasreen Begum. You have 2 lectures today.</p>
         </div>
       </div>
 
@@ -21,7 +21,7 @@ export default function TeacherPage() {
          {/* Direct Action - Attendance */}
          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
             <h3 className="font-bold text-gray-900 mb-6 flex items-center gap-2">
-               <Users className="w-5 h-5 text-brand-primary-blue" /> Today's Classes (Attendance Pending)
+               <Users className="w-5 h-5 text-brand-primary-blue" /> Today&apos;s Classes (Attendance Pending)
             </h3>
             <div className="flex flex-col gap-4">
               {classes.map((cls, idx) => (
@@ -45,7 +45,7 @@ export default function TeacherPage() {
             </h3>
             <div className="p-4 rounded-xl border-2 border-orange-100 bg-orange-50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                <div>
-                  <h4 className="font-bold text-orange-900">Anatomy Prelim Quiz 1</h4>
+                  <h4 className="font-bold text-orange-900">Microbiology Prelim Quiz 1</h4>
                   <p className="text-sm font-medium text-orange-700 mt-1">42 submissions pending review.</p>
                </div>
                <button className="px-4 py-2 bg-orange-500 text-white font-bold rounded-lg shadow-sm text-sm whitespace-nowrap">Grade Now</button>

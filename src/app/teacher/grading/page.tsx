@@ -143,7 +143,7 @@ export default function GradingPage() {
             </div>
             <div>
               <h1 className="text-xl font-black text-gray-900 tracking-tight">Grading & Results</h1>
-              <p className="text-xs font-medium text-gray-400">General Bacteriology Prelim — April 28, 2026</p>
+              <p className="text-xs font-medium text-gray-400">Microbiology (MICRO-303) · Third Professional MBBS — General Bacteriology Prelim, April 28, 2026</p>
             </div>
           </div>
         </div>

@@ -30,9 +30,9 @@ const students = [
 
 /* ── Override Audit Log ─── */
 const auditLog = [
-  { id: 'OVR-001', studentId: 'USB-2606', studentName: 'Hasan Mahmud', date: 'Apr 18, 2026', category: 'General Classes', from: '73%', to: '76%', reason: 'Medical leave — 5 days approved (hospitalization)', overriddenBy: 'Dr. Amin Chowdhury (HOD)', approvedBy: 'Principal' },
-  { id: 'OVR-002', studentId: 'USB-2610', studentName: 'Tanvir Hossain', date: 'Apr 15, 2026', category: 'Integrated Teaching', from: '72%', to: '78%', reason: 'Official sports duty — represented college at inter-medical cricket', overriddenBy: 'Dr. Amin Chowdhury (HOD)', approvedBy: 'Principal' },
-  { id: 'OVR-003', studentId: 'USB-2608', studentName: 'Rafi Islam', date: 'Apr 10, 2026', category: 'General Classes', from: '65%', to: '68%', reason: 'Family emergency — death in family, 3 days leave', overriddenBy: 'Dr. Amin Chowdhury (HOD)', approvedBy: 'Pending' },
+  { id: 'OVR-001', studentId: 'USB-2606', studentName: 'Hasan Mahmud', date: 'Apr 18, 2026', category: 'General Classes', from: '73%', to: '76%', reason: 'Medical leave — 5 days approved (hospitalization)', overriddenBy: 'Prof. Dr. Nasreen Begum (HOD)', approvedBy: 'Principal' },
+  { id: 'OVR-002', studentId: 'USB-2610', studentName: 'Tanvir Hossain', date: 'Apr 15, 2026', category: 'Integrated Teaching', from: '72%', to: '78%', reason: 'Official sports duty — represented college at inter-medical cricket', overriddenBy: 'Prof. Dr. Nasreen Begum (HOD)', approvedBy: 'Principal' },
+  { id: 'OVR-003', studentId: 'USB-2608', studentName: 'Rafi Islam', date: 'Apr 10, 2026', category: 'General Classes', from: '65%', to: '68%', reason: 'Family emergency — death in family, 3 days leave', overriddenBy: 'Prof. Dr. Nasreen Begum (HOD)', approvedBy: 'Pending' },
 ];
 
 const overrideReasons = [
@@ -70,7 +70,7 @@ export default function AttendanceOverridePage() {
           </div>
           <div>
             <h1 className="text-xl font-black text-gray-900 tracking-tight">Attendance Override</h1>
-            <p className="text-xs font-medium text-gray-400">HOD Authority — Manually adjust attendance records with audit trail</p>
+            <p className="text-xs font-medium text-gray-400">Microbiology Dept. · Third Professional MBBS (Phase III) — Manually adjust attendance records with audit trail</p>
           </div>
         </div>
       </div>
@@ -131,7 +131,7 @@ export default function AttendanceOverridePage() {
       {/* Student Attendance Table */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-100">
-          <h2 className="text-sm font-bold text-gray-900">Student Attendance Overview — Microbiology Dept.</h2>
+          <h2 className="text-sm font-bold text-gray-900">Student Attendance Overview — Microbiology (MICRO-303), Phase III</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left">

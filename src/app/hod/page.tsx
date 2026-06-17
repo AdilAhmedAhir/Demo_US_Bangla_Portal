@@ -59,7 +59,7 @@ export default function HODPage() {
             Microbiology Department Command Center
           </h1>
           <p className="text-sm md:text-base font-medium text-gray-400">
-            Prof. Ruksana Raihan — <span className="text-gray-300">Head of Department</span>
+            Prof. Dr. Nasreen Begum — <span className="text-gray-300">Head of Department, Microbiology</span>
           </p>
         </div>
       </div>
@@ -223,7 +223,7 @@ export default function HODPage() {
             Recent Override History
           </h2>
           <p className="text-xs text-gray-500 font-medium mt-1">
-            Attendance adjustments made by the HOD this semester.
+            Attendance adjustments made by the HOD this Phase III block.
           </p>
         </div>
 

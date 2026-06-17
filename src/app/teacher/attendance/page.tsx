@@ -18,7 +18,7 @@ export default function TeacherAttendancePage() {
          <div>
             <Link href="/teacher" className="text-sm text-brand-primary-blue hover:underline mb-1 inline-block">← Back to Dashboard</Link>
             <h1 className="text-2xl font-bold text-gray-900">Attendance Sheet</h1>
-            <p className="text-sm font-medium text-gray-500">General Anatomy • MBBS Term 4 • Today 08:00 AM</p>
+            <p className="text-sm font-medium text-gray-500">Microbiology (MICRO-303) • Phase III — Third Professional MBBS • Prof. Dr. Nasreen Begum • Today 08:00 AM</p>
          </div>
          <button className="flex items-center gap-2 bg-brand-primary-green text-white px-5 py-2.5 rounded-lg font-bold shadow hover:bg-brand-primary-green/90 transition-all">
            <Save className="w-4 h-4" /> Save & Broadcast SMS Alert

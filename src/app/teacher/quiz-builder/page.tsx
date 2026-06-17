@@ -35,7 +35,7 @@ export default function QuizBuilderPage() {
             </div>
             <div>
               <h1 className="text-xl font-black text-gray-900 tracking-tight">Assessment Builder</h1>
-              <p className="text-xs font-medium text-gray-400">Create preliminary quizzes and term exams</p>
+              <p className="text-xs font-medium text-gray-400">Microbiology (MICRO-303) · Third Professional MBBS (Phase III)</p>
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@ export default function QuizBuilderPage() {
           {/* Target Course */}
           <div>
             <label className="block text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-2">
-              Target Course
+              Microbiology Topic
             </label>
             <div className="relative">
               <BookOpen className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -84,7 +84,8 @@ export default function QuizBuilderPage() {
                 <option>General Bacteriology</option>
                 <option>Systemic Bacteriology</option>
                 <option>Immunology</option>
-                <option>Parasitology</option>
+                <option>Virology</option>
+                <option>Mycology &amp; Parasitology</option>
               </select>
               <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
             </div>
@@ -117,7 +118,7 @@ export default function QuizBuilderPage() {
               <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input
                 type="date"
-                defaultValue="2026-04-28"
+                defaultValue="2026-06-28"
                 className="w-full pl-10 pr-4 py-3 text-sm font-semibold text-gray-900 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue transition-all"
               />
             </div>
@@ -195,7 +196,7 @@ export default function QuizBuilderPage() {
               </span>
               <div className="flex items-center gap-1.5 px-2.5 py-1 bg-purple-50 border border-purple-200 rounded-lg">
                 <CircleDot className="w-3 h-3 text-purple-600" />
-                <span className="text-[10px] font-bold text-purple-600">Multiple Choice</span>
+                <span className="text-[10px] font-bold text-purple-600">SBA (Single Best Answer)</span>
               </div>
               <span className="text-[10px] font-bold text-gray-400">5 marks</span>
             </div>
@@ -275,7 +276,7 @@ export default function QuizBuilderPage() {
               </span>
               <div className="flex items-center gap-1.5 px-2.5 py-1 bg-amber-50 border border-amber-200 rounded-lg">
                 <Type className="w-3 h-3 text-amber-600" />
-                <span className="text-[10px] font-bold text-amber-600">Short Answer</span>
+                <span className="text-[10px] font-bold text-amber-600">SAQ (Short Answer Question)</span>
               </div>
               <span className="text-[10px] font-bold text-gray-400">20 marks</span>
             </div>
@@ -335,7 +336,7 @@ export default function QuizBuilderPage() {
           </div>
           <span className="text-sm font-bold text-brand-primary-blue">Add New Question</span>
           <span className="text-[10px] font-medium text-gray-400">
-            Multiple Choice  •  Short Answer  •  True/False  •  Essay
+            SBA  •  MCQ (MTF)  •  SAQ  •  SEQ
           </span>
         </button>
       </div>

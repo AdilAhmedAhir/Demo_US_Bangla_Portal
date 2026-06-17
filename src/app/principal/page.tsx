@@ -34,13 +34,13 @@ const kpiCards = [
 
 /* ── Department data ─── */
 const departments = [
-  { name: 'Anatomy',          head: 'Dr. Samira Begum',    faculty: 14, students: 480, passRate: 96.1 },
-  { name: 'Physiology',       head: 'Dr. Amin Chowdhury',  faculty: 11, students: 480, passRate: 93.4 },
-  { name: 'Biochemistry',     head: 'Dr. Farzana Noor',    faculty: 9,  students: 480, passRate: 91.7 },
-  { name: 'Microbiology',     head: 'Prof. Kamal Uddin',   faculty: 12, students: 320, passRate: 94.8 },
-  { name: 'Pharmacology',     head: 'Dr. Nazmul Haque',    faculty: 10, students: 320, passRate: 89.3 },
-  { name: 'Pathology',        head: 'Dr. Rehana Sultana',  faculty: 13, students: 320, passRate: 92.5 },
-  { name: 'Community Medicine', head: 'Dr. Rafiq Islam',   faculty: 8,  students: 480, passRate: 97.2 },
+  { name: 'Anatomy',          head: 'Prof. Dr. Shamsun Nahar',  faculty: 14, students: 480, passRate: 96.1 },
+  { name: 'Physiology',       head: 'Prof. Dr. Aminul Haque',   faculty: 11, students: 480, passRate: 93.4 },
+  { name: 'Biochemistry',     head: 'Prof. Dr. Sultana Razia',  faculty: 9,  students: 480, passRate: 91.7 },
+  { name: 'Microbiology',     head: 'Prof. Dr. Nasreen Begum',  faculty: 12, students: 320, passRate: 94.8 },
+  { name: 'Pharmacology',     head: 'Prof. Dr. Golam Mostafa',  faculty: 10, students: 320, passRate: 89.3 },
+  { name: 'Pathology',        head: 'Prof. Dr. Abdul Karim',    faculty: 13, students: 320, passRate: 92.5 },
+  { name: 'Community Medicine', head: 'Prof. Dr. Mahbubur Rahman', faculty: 8,  students: 480, passRate: 97.2 },
 ];
 
 /* ── Recent actions ─── */

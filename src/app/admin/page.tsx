@@ -31,10 +31,10 @@ export default function PrincipalPortal() {
   ];
 
   const topTeachers = [
-    { name: 'Dr. Shahin Rahman', dept: 'Anatomy', rating: 4.9, classes: 48, attendance: '100%' },
-    { name: 'Dr. Fatima Akter', dept: 'Physiology', rating: 4.8, classes: 45, attendance: '98%' },
-    { name: 'Dr. Kamal Hossain', dept: 'Pathology', rating: 4.7, classes: 46, attendance: '100%' },
-    { name: 'Dr. Nusrat Begum', dept: 'Pharmacology', rating: 4.6, classes: 44, attendance: '96%' },
+    { name: 'Prof. Dr. Nasreen Begum', dept: 'Microbiology', rating: 4.9, classes: 48, attendance: '100%' },
+    { name: 'Prof. Dr. Abdul Karim', dept: 'Pathology', rating: 4.8, classes: 45, attendance: '98%' },
+    { name: 'Prof. Dr. Mahbubur Rahman', dept: 'Community Medicine', rating: 4.7, classes: 46, attendance: '100%' },
+    { name: 'Prof. Dr. Golam Mostafa', dept: 'Pharmacology', rating: 4.6, classes: 44, attendance: '96%' },
   ];
 
   return (
@@ -248,8 +248,8 @@ export default function PrincipalPortal() {
            </div>
            <div className="flex-1 p-4 overflow-y-auto space-y-3 text-xs font-sans">
               <div className="bg-emerald-50 border border-emerald-100 text-emerald-900 p-3 rounded-xl rounded-tl-none max-w-[90%] shadow-sm">
-                 <strong className="block text-emerald-700 mb-1">Dr. Shahin (Anatomy) [10:41]</strong>
-                 All Year 2 mid-term results uploaded. No major anomalies detected.
+                 <strong className="block text-emerald-700 mb-1">Prof. Nasreen (Microbiology) [10:41]</strong>
+                 All Phase III professional results uploaded. No major anomalies detected.
               </div>
               <div className="flex justify-end">
                 <div className="bg-slate-900 text-slate-100 p-3 rounded-xl rounded-tr-none max-w-[90%] shadow-sm leading-relaxed">

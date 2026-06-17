@@ -16,7 +16,7 @@ import {
   Filter,
 } from 'lucide-react';
 
-/* ── Item Card Topics (from Microbiology curriculum) ─── */
+/* ── Item Card Topics (BM&DC Microbiology, Phase III / Third Professional) ─── */
 const cardTopics = {
   'Card 1': [
     { id: 'gb1', section: 'General Bacteriology', topic: 'Prokaryote/Eukaryote, Cell Wall, Capsule, Flagella, Spore, Classification' },
@@ -26,20 +26,20 @@ const cardTopics = {
     { id: 'gb5', section: 'General Bacteriology', topic: 'Practical: Gram Staining, ZN Staining, Culture Media' },
     { id: 'gb6', section: 'General Bacteriology', topic: 'Antimicrobials: Mechanism, Resistance, MDR/XDR/PDR' },
     { id: 'gb7', section: 'General Bacteriology', topic: 'Bacterial Genetics: Plasmid, Transposons, Mutation' },
-    { id: 'sb1', section: 'Systemic Bacteriology', topic: 'Staphylococci, Streptococci — Classification, Diseases' },
-    { id: 'sb2', section: 'Systemic Bacteriology', topic: 'Neisseria, Corynebacterium, Bacillus' },
-    { id: 'sb3', section: 'Systemic Bacteriology', topic: 'Mycobacterium TB, Leprosy' },
+    { id: 'pr1', section: 'Parasitology', topic: 'Introduction, Classification, Host-Parasite Relations' },
+    { id: 'pr2', section: 'Parasitology', topic: 'Entamoeba, Giardia, Trichomonas' },
+    { id: 'pr3', section: 'Parasitology', topic: 'Plasmodium — Malaria, Lab Diagnosis' },
+    { id: 'pr4', section: 'Parasitology', topic: 'Cestodes, Trematodes — Taenia, Echinococcus' },
+    { id: 'pr5', section: 'Parasitology', topic: 'Nematodes, Filariasis' },
     { id: 'im1', section: 'Immunology', topic: 'Innate/Adaptive Immunity, Antigens, Immunoglobulins' },
     { id: 'im2', section: 'Immunology', topic: 'Complement, MHC, Cytokines' },
     { id: 'im3', section: 'Immunology', topic: 'Hypersensitivity, Autoimmunity, Transplant Immunology' },
     { id: 'im4', section: 'Immunology', topic: 'Vaccines, ELISA, Western Blot, PCR' },
   ],
   'Card 2': [
-    { id: 'pr1', section: 'Parasitology', topic: 'Introduction, Classification, Host-Parasite Relations' },
-    { id: 'pr2', section: 'Parasitology', topic: 'Entamoeba, Giardia, Trichomonas' },
-    { id: 'pr3', section: 'Parasitology', topic: 'Plasmodium — Malaria, Lab Diagnosis' },
-    { id: 'pr4', section: 'Parasitology', topic: 'Cestodes, Trematodes — Taenia, Echinococcus' },
-    { id: 'pr5', section: 'Parasitology', topic: 'Nematodes, Filariasis' },
+    { id: 'sb1', section: 'Systemic Bacteriology', topic: 'Staphylococci, Streptococci — Classification, Diseases' },
+    { id: 'sb2', section: 'Systemic Bacteriology', topic: 'Neisseria, Corynebacterium, Bacillus' },
+    { id: 'sb3', section: 'Systemic Bacteriology', topic: 'Mycobacterium TB, Leprosy' },
     { id: 'vr1', section: 'Virology', topic: 'General Virology, Antiviral Agents' },
     { id: 'vr2', section: 'Virology', topic: 'Herpes Viruses, Latency, Reactivation' },
     { id: 'vr3', section: 'Virology', topic: 'Hepatitis Viruses' },
@@ -97,7 +97,7 @@ export default function TeacherItemCardPage() {
           </div>
           <div>
             <h1 className="text-xl font-black text-gray-900 tracking-tight">Item Card Management</h1>
-            <p className="text-xs font-medium text-gray-400">Sign off student competency completion — Microbiology</p>
+            <p className="text-xs font-medium text-gray-400">Sign off student competency completion — Microbiology · Phase III (Third Professional)</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
