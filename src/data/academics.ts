@@ -240,7 +240,7 @@ export const weeklySchedule: Record<ScheduleDay, ClassSlot[]> = {
   Monday: [
     { time: '09:00 – 10:00', subject: 'Microbiology', code: 'MICRO-303', type: 'Lecture', faculty: 'Prof. Dr. Nasreen Begum', room: 'Lecture Gallery 2' },
     { time: '10:15 – 12:15', subject: 'Pathology', code: 'PATH-302', type: 'Practical', faculty: 'Dr. Imran Hossain', room: 'Pathology Lab' },
-    { time: '02:00 – 04:00', subject: 'Clinical Posting — Medicine', code: 'CMPH-301', type: 'Clinical', faculty: 'Ward Unit-1', room: 'Medicine Ward' },
+    { time: '02:00 – 04:00', subject: 'Clinical Posting — Medicine', code: '—', type: 'Clinical', faculty: 'Ward Unit-1', room: 'Medicine Ward' },
   ],
   Tuesday: [
     { time: '09:00 – 10:00', subject: 'Community Medicine & Public Health', code: 'CMPH-301', type: 'Lecture', faculty: 'Dr. Farhana Akter', room: 'Lecture Gallery 1' },
@@ -250,7 +250,7 @@ export const weeklySchedule: Record<ScheduleDay, ClassSlot[]> = {
   Wednesday: [
     { time: '09:00 – 11:00', subject: 'Integrated Teaching', code: '—', type: 'Integrated', faculty: 'Multi-disciplinary Panel', room: 'Seminar Hall' },
     { time: '11:15 – 12:15', subject: 'Pathology', code: 'PATH-302', type: 'Lecture', faculty: 'Prof. Dr. Abdul Karim', room: 'Lecture Gallery 2' },
-    { time: '02:00 – 04:00', subject: 'Clinical Posting — Surgery', code: 'PATH-302', type: 'Clinical', faculty: 'Ward Unit-2', room: 'Surgery Ward' },
+    { time: '02:00 – 04:00', subject: 'Clinical Posting — Surgery', code: '—', type: 'Clinical', faculty: 'Ward Unit-2', room: 'Surgery Ward' },
   ],
   Thursday: [
     { time: '09:00 – 10:00', subject: 'Community Medicine & Public Health', code: 'CMPH-301', type: 'Lecture', faculty: 'Prof. Dr. Mahbubur Rahman', room: 'Lecture Gallery 1' },
@@ -283,3 +283,15 @@ export const assessments: Assessment[] = [
 
 export const upcomingAssessments = assessments.filter((a) => a.status === 'upcoming');
 export const completedAssessments = assessments.filter((a) => a.status === 'completed');
+
+/* ── Recent term-examination results (Phase III) — drives the dashboard transcript ── */
+export interface TermResult {
+  term: string;
+  subject: string;
+  percentage: number;
+}
+export const recentResults: TermResult[] = [
+  { term: 'Term I', subject: 'Community Medicine & Public Health', percentage: 79 },
+  { term: 'Term I', subject: 'Pathology', percentage: 72 },
+  { term: 'Term I', subject: 'Microbiology', percentage: 66 },
+];

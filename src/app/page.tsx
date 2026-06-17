@@ -350,19 +350,13 @@ export default function DashboardPage() {
       </div>
 
       {/* 6. Eligibility Tracker */}
-      <EligibilityTracker termExamScore={3.5} attendancePercent={82} attendanceScore={2.0} />
+      <EligibilityTracker termExamScore={3.5} attendancePercent={student.attendance} attendanceScore={2.0} />
 
       {/* 7. Microbiology Digital Item Cards */}
       <DigitalItemCards />
 
       {/* 8. Academic Transcript */}
-      <AcademicTranscript cgpa={4.50} results={[
-        { term: '1st Term', subject: 'Microbiology', percentage: 78 },
-        { term: '1st Term', subject: 'Pathology', percentage: 62 },
-        { term: '1st Term', subject: 'Community Medicine', percentage: 55 },
-        { term: '2nd Term', subject: 'Pathology', percentage: 71 },
-        { term: '2nd Term', subject: 'Microbiology', percentage: 66 },
-      ]} />
+      <AcademicTranscript />
     </div>
   );
 }

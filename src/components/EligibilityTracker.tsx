@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ShieldCheck, AlertTriangle, BookOpenCheck, CalendarCheck, Info } from 'lucide-react';
+import { student } from '@/data/academics';
 
 interface EligibilityTrackerProps {
   termExamScore: number;     // out of 5.0
@@ -11,7 +12,7 @@ interface EligibilityTrackerProps {
 
 export default function EligibilityTracker({
   termExamScore = 3.5,
-  attendancePercent = 82,
+  attendancePercent = student.attendance,
   attendanceScore = 2.0,
 }: EligibilityTrackerProps) {
   const totalScore = Math.round((termExamScore + attendanceScore) * 10) / 10;

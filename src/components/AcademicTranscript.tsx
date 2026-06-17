@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { GraduationCap, TrendingUp, Award, AlertTriangle } from 'lucide-react';
+import { GraduationCap, Award, AlertTriangle } from 'lucide-react';
+import { student, recentResults } from '@/data/academics';
 
 interface TermResult {
   term: string;
@@ -10,8 +11,8 @@ interface TermResult {
 }
 
 interface AcademicTranscriptProps {
-  cgpa: number;
-  results: TermResult[];
+  cgpa?: number;
+  results?: TermResult[];
 }
 
 /** US Bangla Medical College GPA Scale */
@@ -40,17 +41,9 @@ const tierStyles = {
   fail:      { text: 'text-[#ed1c24]', bg: 'bg-red-50', border: 'border-red-200', badge: 'bg-red-100 text-red-700' },
 };
 
-const DEFAULT_RESULTS: TermResult[] = [
-  { term: '1st Term', subject: 'Microbiology',      percentage: 78 },
-  { term: '1st Term', subject: 'Pathology',         percentage: 62 },
-  { term: '1st Term', subject: 'Pharmacology',      percentage: 85 },
-  { term: '1st Term', subject: 'Community Medicine', percentage: 55 },
-  { term: '1st Term', subject: 'Forensic Medicine',  percentage: 71 },
-];
-
 export default function AcademicTranscript({
-  cgpa = 4.50,
-  results = DEFAULT_RESULTS,
+  cgpa = student.gpa,
+  results = recentResults,
 }: AcademicTranscriptProps) {
   const cgpaInfo = cgpaToLetter(cgpa);
   const cgpaTierStyle = tierStyles[cgpaInfo.tier];
@@ -84,7 +77,7 @@ export default function AcademicTranscript({
                 {cgpa.toFixed(2)}
               </span>
               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1.5">
-                CGPA
+                Cumulative GPA · /5.00
               </span>
             </div>
 
@@ -102,14 +95,6 @@ export default function AcademicTranscript({
             </div>
           </div>
 
-          {/* Trend indicator */}
-          <div className="flex flex-col items-end relative z-10">
-            <div className="flex items-center gap-1.5 text-emerald-600">
-              <TrendingUp className="w-4 h-4" />
-              <span className="text-sm font-black">+0.12</span>
-            </div>
-            <span className="text-[10px] font-bold text-gray-400 mt-1">vs. previous term</span>
-          </div>
         </div>
       </div>
 
@@ -138,14 +123,14 @@ export default function AcademicTranscript({
       <div className="border-t border-gray-100">
         <div className="px-6 py-3.5 bg-gray-50/70 border-b border-gray-100">
           <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-            Recent Term Finals
+            Recent Term Examinations
           </h4>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-gray-100">
-                <th className="px-6 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Term</th>
+                <th className="px-6 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Assessment</th>
                 <th className="px-6 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Subject</th>
                 <th className="px-6 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider text-center">Percentage</th>
                 <th className="px-6 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider text-right">Grade</th>
